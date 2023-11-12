@@ -1,0 +1,113 @@
+<h5 class="Twinbee-title titlealign"> <strong class="badge badge-primary">Quotation Listing</strong></h5>
+
+<div class="twinbee-content ">
+  <igx-grid class="elevate16" #grid1 [data]="quoteListing" [filterMode]="'quickFilter'" [allowFiltering]="true"
+    [primaryKey]="'sqno'" width="1335px" height="450px" (onSelection)="handleSelection($event)"
+    [displayDensity]="'cosy'" (onColumnInit)="initColumns($event)">
+
+    <igx-column width="105px" field="sqno" header="Quote No."></igx-column>
+    <igx-column width="250px" field="custname" header="Customer Name" [dataType]="'string'" sortable="true">
+    </igx-column>
+    <igx-column width="105px" field="sqdate" header="Trans Date" [dataType]="'string'" [filterable]="true">
+    </igx-column>
+    <igx-column width="105px" field="status" header="STATUS" [dataType]="'string'">
+    </igx-column>
+    <igx-column width="95px" field="vat_type" header="Vat Type" [dataType]="'string'"></igx-column>
+
+    <igx-column width="80px" [filterable]="false">
+      <ng-template igxCell let-cell="cell" let-val>
+        <button class="btnminwidth" igxButton="raised" displayDensity="compact" igxRipple
+          (click)="Viewevent($event, cell.cellID.rowID)">
+          <igx-icon fontSet="material" color="#FFFF00">preview</igx-icon>
+          <span>View</span>
+        </button>
+      </ng-template>
+    </igx-column>
+    <igx-column width="80px" [filterable]="false">
+      <ng-template igxCell let-cell="cell" let-val>
+        <button class="btnminwidth" igxButton="raised" displayDensity="compact" igxRipple
+          (click)="Editevent($event, cell.cellID.rowID)">
+          <igx-icon fontSet="material" color="#FFFF00">edit</igx-icon>
+          <span>Edit</span>
+        </button>
+      </ng-template>
+    </igx-column>
+    <igx-column width="80px" [filterable]="false">
+      <ng-template igxCell let-cell="cell" let-val>
+        <button class="btnminwidth teal lighten-2" igxButton="raised" displayDensity="compact" igxRipple
+          (click)="Printevent($event, cell.cellID.rowID)">
+          <igx-icon fontSet="material" color="#FFFF00">print</igx-icon>
+          <span>Print</span>
+        </button>
+      </ng-template>
+    </igx-column>
+    <igx-column width="110px" [filterable]="false">
+      <ng-template igxCell let-cell="cell" let-val>
+        <button igxButton="raised" displayDensity="compact" igxRipple
+          (click)="Confirmevent($event, cell.cellID.rowID,cell.rowData)">
+          <igx-icon fontSet="material" color="#FFFF00">task_alt</igx-icon>
+          <span>Confirm</span>
+        </button>
+      </ng-template>
+    </igx-column>
+    <igx-column width="80px" [filterable]="false">
+      <ng-template igxCell let-cell="cell" let-val>
+        <button class="btnminwidth teal lighten-2" igxButton="raised" displayDensity="compact" igxRipple
+          (click)="GenAndViewforJO($event, cell.cellID.rowID,cell.rowData)">
+          <igx-icon fontSet="material" color="#FFFF00">rowing</igx-icon>
+          <span>Gen. J.O</span>
+        </button>
+      </ng-template>
+    </igx-column>
+    <igx-column width="105px" [filterable]="false">
+      <ng-template igxCell let-cell="cell" let-val>
+        <button igxButton="raised" displayDensity="compact" igxRipple (click)="Printevent($event, cell.cellID.rowID)">
+          <igx-icon fontSet="material" color="#0026ca">print</igx-icon>
+          <span>Print J.O</span>
+        </button>
+      </ng-template>
+    </igx-column>
+    <igx-column width="115px" [filterable]="false">
+      <ng-template igxCell let-cell="cell" let-val>
+        <button igxButton="raised" displayDensity="compact" igxRipple (click)="CopyQuote($event, cell.cellID.rowID)">
+          <igx-icon fontSet="material" color="#0026ca">thumb_up_alt</igx-icon>
+          <span>Copy Quote</span>
+        </button>
+      </ng-template>
+    </igx-column>
+
+    <igx-column width="120px" field="contactp" header="Contact" [dataType]="'string'"></igx-column>
+
+  </igx-grid>
+
+  <igx-dialog #dialogPrint title="Print Preview" [leftButtonLabel]="'Close'" (onLeftButtonSelect)="cancel()"
+    width="1200px" height="450px">
+    <div>
+      <!-- <app-print-drd #viewer1 *ngIf="rs" [reportSource]="rs"></app-print-drd> -->
+      <tr-viewer #viewer1 [containerStyle]="viewerContainerStyle" [serviceUrl]="linkreport" *ngIf="rs"
+        [reportSource]="rs" [viewMode]="'INTERACTIVE'" [scaleMode]="'SPECIFIC'" [scale]="1.0" [ready]="ready"
+        [viewerToolTipOpening]="viewerToolTipOpening" [enableAccessibility]="false" [sendEmail]="{ enabled: 'true' }">
+      </tr-viewer>
+      <!-- <button (click)="viewer1.refreshReport()">Refresh</button>
+        <button (click)="viewer1.commands.print.exec()">Print</button>-->
+    </div>
+  </igx-dialog>
+
+  <!-- igx-dialog #dialogAdd title="New Transaction" [rightButtonLabel]="'Add'" [leftButtonLabel]="'Cancel'"
+(onLeftButtonSelect)="closeadd()"  width="300px">
+(onClose)="closeDialog($event)" -->
+
+</div>
+<igx-dialog #dialogConfirm title="Confirm Quotation ?" leftButtonLabel="Cancel" rightButtonLabel="Confirm"
+  backgroundClick="true" [closeOnOutsideSelect]="true" (onLeftButtonSelect)="closeDialog()"
+  (onRightButtonSelect)="ConfirmQuotation()">
+  <app-quotation-confirm [events]="eventsSubject.asObservable()" [sqno]="confirm_sqno" (ConfirmEmit)="ConfirmSuccess()">
+  </app-quotation-confirm>
+</igx-dialog>
+
+<igx-toast #toast [position]="toastPosition" displayTime="2500" message="Successfully Confirm.!!!">
+  Successfully Confirm.!!!
+</igx-toast>
+
+<igx-toast #toastConfirm [position]="toastPosition" displayTime="2500" message="Please Confirm.!!!">
+</igx-toast>

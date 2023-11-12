@@ -1,0 +1,18 @@
+.grid__wrapper {
+  margin: 20px 30px;
+}
+
+:host {
+  ::ng-deep {
+    .myBackground{
+      background-color: lightblue;
+    }
+    .igx-grid__th {
+      text-align: center ;
+    }
+    .igx-grid__td{
+      color: blue;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+<!-- <button #btn (click)="toggleItem()">Button</button> -->
+
+<!-- <div class="container-fluid">
+  <form novalidate class="k-form" [formGroup]="createForm">
+    <div class="hdrleft" igxLayout>
+      <igx-combo class="combo" #combocust [itemsMaxHeight]="230" formControlName="custid" placeholder="Select Customer"
+        searchPlaceholder="Search..." type="box" [displayDensity]="'cosy'" [data]="_customerdata" [valueKey]="'custid'"
+        [displayKey]="'custname'" (onSelectionChange)="singleCustSelection($event)">
+        <label igxLabel>Customer Name:</label>
+        <igx-prefix>
+          <igx-icon>people</igx-icon>
+        </igx-prefix>
+      </igx-combo>
+    </div>
+  </form>
+</div> -->
+
+
+<div class="twinbee-column" *ngIf="viewBillHdr$ | async as vm">
+  <div class="card-header text-center twinbee-title">
+    BILLING listing
+  </div>
+  <igx-grid #grid1 igxPreventDocumentScroll [data]="vm.billhdr" [filterMode]="'quickFilter'" [allowFiltering]="true"
+    [primaryKey]="'billno'" height="450px" width="100%" [displayDensity]="'compact'" (onSelection)="handleSelection($event)">
+    <igx-column width="100px" field="billno" header="Control No." [dataType]="'number'" [filterable]="true"
+      editable="false">
+    </igx-column>
+    <igx-column width="135px" field="billseries" header="Billing Series" [filterable]="true" editable="false"
+      [hidden]="false">
+    </igx-column>
+    <igx-column width="335px" field="custname" header="Customer Name" [filterable]="true" editable="false"
+      [hidden]="false">
+    </igx-column>
+    <igx-column width="315px" field="billto" header="Bill To:" [filterable]="true" editable="false" [hidden]="false">
+    </igx-column>
+    <igx-column width="150px" field="trndate" header="Billing Date" [dataType]="'string'" [filterable]="false">
+    </igx-column>
+    <igx-column width="105px" [filterable]="false">
+      <ng-template igxCell let-cell="cell" let-val>
+        <button igxButton="raised" displayDensity="compact" igxRipple (click)="EditBill($event, cell.cellID.rowID)">
+          <igx-icon fontSet="material" color="#0026ca">edit_note</igx-icon>
+          <span>EDIT</span>
+        </button>
+      </ng-template>
+    </igx-column>
+  </igx-grid>
+  <div class="layout-box__el">
+    <button class="btngap" igxButton="raised" igxRipple type="button" (click)="refresh()">REFRESH</button>
+  </div>
+</div>

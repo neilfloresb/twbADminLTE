@@ -1,0 +1,252 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+// @import "~minireset.css/minireset";
+
+/* See: https://www.infragistics.com/products/ignite-ui-angular/angular/components/themes.html */
+// @import "~igniteui-angular/lib/core/styles/themes/index";
+
+// $primary: #731963 !default;
+// $secondary: #ce5712 !default;
+
+// $app-palette: igx-palette($primary, $secondary);
+
+// /* autoprefixer grid: on */
+
+// @include igx-core();
+// @include igx-theme($app-palette);
+//@import "~bootswatch/dist/cosmo/variables";
+//@import "~bootstrap/scss/bootstrap";
+//@import "~bootswatch/dist/cosmo/bootswatch";
+
+@import "~minireset.css/minireset";
+
+/* See: https://www.infragistics.com/products/ignite-ui-angular/angular/components/themes.html */
+@import "~igniteui-angular/lib/core/styles/themes/index";
+
+$secondary: #ce5712 !default;
+$primary: #731963 !default;
+// $primary: #731963 !default;
+// $secondary: #ce5712 !default;
+
+$app-palette: igx-palette($primary, $secondary);
+
+/* autoprefixer grid: on */
+
+@include igx-core();
+@include igx-theme($app-palette);
+
+/* LOGIN CSS*/
+body {
+  height: 100%;
+  //margin: 15px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #e7f1f5;
+}
+
+:root {
+  // --primary-light-hsl: 200, 100%, 91%;
+  // --primary-hsl: 200, 100%, 50%;
+  // --primary-dark-hsl: 200, 100%, 60%;
+
+  --primary-light-hsl: 200, 100%, 91%;
+  --primary-hsl: 200, 100%, 50%;
+  --primary-dark-hsl: 200, 100%, 6%;
+  --success-hsl: 100, 60%, 50%;
+  --error-hsl: 0, 60%, 50%;
+}
+
+#twinbee-app {
+  @include fade-in-fwd();
+
+  .logo {
+    min-width: 172px;
+    min-height: 56.666px;
+  }
+
+  .main {
+    position: absolute;
+    display: flex;
+    flex-flow: row nowrap;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+
+    > * {
+      width: 100%;
+    }
+  }
+
+  .content {
+    position: relative;
+    overflow-y: scroll;
+    perspective: 5000px;
+  }
+
+  .nav-header {
+    display: flex;
+    align-items: center;
+    padding: 24px 16px;
+    height: 190px;
+  }
+
+  .twinbee {
+    &-wrapper {
+      width: inherit;
+      position: relative;
+      height: 100%;
+      margin: 0 auto;
+
+    position: relative;
+    overflow-y: scroll;
+    overflow-X: scroll;
+    perspective: 5000px;
+    }
+
+    &-column {
+      display: flex;
+      flex-flow: column nowrap;
+      flex: 1 0 25%;
+      align-content: flex-start;
+      margin: 13px 10px;
+      min-width: 280px;
+    }
+
+    &-title {
+      @include igx-type-style($default-type-scale, "h6");
+      margin-bottom: 10px;
+
+      .light {
+        font-weight: 400;
+      }
+    }
+
+    &-description {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    &-content {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      padding: 28px 8px;
+      @include animation(fade-in-fwd 0.3s $ease-out-quad);
+    }
+
+    &-displaycontent {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      padding: 10px 8px;
+      @include animation(fade-in-fwd 0.3s $ease-out-quad);
+    }
+  }
+
+  // .usermain {
+  //   input.form-control,
+  //   input.form-control:focus {
+  //     background-color: #636b7b;
+  //     color: #fff;
+  //     border: 1px solid #636b7b;
+  //   }
+
+  //   input.form-control:focus {
+  //     box-shadow: none;
+  //   }
+
+  //   button[type="submit"].btn {
+  //     border-radius: 20px;
+  //     background-color: #32ce15;
+  //     color: #fff;
+  //   }
+
+  //   div.form-group label:not(.text-danger) {
+  //     color: #545d6a;
+  //     font-weight: 700;
+  //   }
+
+  //   div.form-group.required > label:first-child:after {
+  //     content: "*";
+  //     color: #fff;
+  //     padding-left: 5px;
+  //   }
+
+  //   #toast-container > div {
+  //     opacity: 1;
+  //   }
+
+  //   .wrapper {
+  //     display: flex;
+  //     align-items: center;
+  //     flex-direction: column;
+  //     justify-content: center;
+  //     width: 100%;
+  //     padding: 20px;
+
+  //     position: absolute;
+  //     display: flex;
+  //     flex-flow: row nowrap;
+  //     top: 0;
+  //     right: 0;
+  //     bottom: 0;
+  //     left: 0;
+  //     overflow: hidden;
+
+  //     > * {
+  //       width: 100%;
+  //     }
+  //   }
+
+  //   .wrapped-div {
+  //     -webkit-border-radius: 10px 10px 10px 10px;
+  //     border-radius: 10px 10px 10px 10px;
+  //     background: #f3752c;
+  //     padding: 30px;
+  //     width: 90%;
+  //     max-width: 450px;
+  //     position: relative;
+  //     padding: 0px;
+  //     -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+  //     box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+  //   }
+
+  //   /* Tabs */
+  //   .tab-header {
+  //     text-align: center;
+  //   }
+
+  //   .tab-header h2.active {
+  //     color: #fff;
+  //     border-bottom: 4px solid #fff;
+  //   }
+
+  //   .tab-header h2 {
+  //     text-align: center;
+  //     font-size: 18px;
+  //     font-weight: 600;
+  //     display: inline-block;
+  //     padding: 30px 40px 10px 40px;
+  //     cursor: pointer;
+  //     color: #545d6a;
+  //     border-bottom: 2px solid #545d6a;
+  //   }
+
+  //   .tab-header h2:focus {
+  //     outline: none;
+  //   }
+
+  //   form {
+  //     margin: 0px 16px;
+  //   }
+
+  //   div.form-group input.invalid {
+  //     border: 1px solid #dc3545;
+  //   }
+  //   div.form-group label:first-child {
+  //     text-transform: uppercase;
+  //     font-size: 0.9rem;
+  //   }
+  // }
+}

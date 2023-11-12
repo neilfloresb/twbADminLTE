@@ -1,0 +1,93 @@
+<div class="twinbee-wrapper">
+  <section class="twinbee-content">
+    <div class="input-group-form elevate16">
+      <form [formGroup]="glJVForm" (ngSubmit)="Save()">
+        <h5 class="Twinbee-title">JV Transaction entry</h5>
+        <div igxLayout igxLayoutDir="column" igxLayoutJustify="space-between">
+          <div igxLayout igxLayoutDir="row" igxLayoutJustify="space-between">
+            <div class="layout-box__el">
+              <igx-input-group type="border">
+                <label igxLabel>Referrence No.</label>
+                <input igxInput name="ref_no" formControlName="ref_no" />
+              </igx-input-group>
+            </div>
+            <div class="layout-box__el">
+              <igx-input-group type="border">
+                <label igxLabel>Source</label>
+                <input igxInput name="source" formControlName="source" />
+              </igx-input-group>
+            </div>
+            <div class="layout-box__el">
+              <igx-input-group type="border">
+                <label igxLabel>Type</label>
+                <input igxInput name="trans_code" formControlName="trans_code" />
+              </igx-input-group>
+            </div>
+            <div class="layout-box__el">
+              <igx-input-group type="border">
+                <label igxLabel>Fiscal Period (Month)</label>
+                <input igxInput name="fiscal_year" formControlName="fiscal_year" />
+              </igx-input-group>
+            </div>
+            <div class="layout-box__el">
+              <igx-input-group type="border">
+                <label igxLabel>Fiscal Period (year)</label>
+                <input igxInput name="fiscal_period" formControlName="fiscal_period" />
+              </igx-input-group>
+            </div>
+          </div>
+          <div igxLayout igxLayoutDir="row" igxLayoutJustify="space-between">
+            <div class="layout-box__el" igxFlexGrow="0">
+              <igx-date-picker #jvtransdate name="trans_date" format="MM/dd/yyyy" [mode]="'dropdown'"
+                formControlName="trans_date" cancelButtonLabel="close" todayButtonLabel="today" [value]="current_date"
+                label="Transaction Date:" displayDensity="compact" width="20px" (onSelection)="onSdateSelection($event)"
+                (valueChange)="valueChanged($event)" [formatter]="formatter">
+              </igx-date-picker>
+            </div>
+            <div class="layout-box__el" igxFlex igxFlexGrow="1">
+              <igx-combo class="combo" #combobook [itemsMaxHeight]="230" formControlName="book_code"
+                [data]="_bookService" [valueKey]="'type'" [displayKey]="'bookname'" placeholder="Select Book"
+                searchPlaceholder="Search..." type="box" [displayDensity]="'compact'"
+                (onSelectionChange)="singleSelection($event)">
+                <label igxLabel>Book:</label>
+              </igx-combo>
+            </div>
+            <div class=" layout-box__el" igxFlex igxFlexGrow="1">
+              <igx-input-group type="border">
+                <label igxLabel>Remarks</label>
+                <textarea igxInput formControlName="remarks"></textarea>
+              </igx-input-group>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <button igxButton="raised" igxRipple type="submit">Save Header</button>
+      </form>
+
+    </div>
+
+
+    <div class="elevate16">
+      <hr>
+      <app-gljv-detials [ctrl_refno]="_ctrlno_" (newItemEvent)="OnSample()"></app-gljv-detials>
+      <hr>
+    </div>
+  </section>
+</div>
+<!-- <button igxButton="raised" displayDensity="cosy" igxRipple>
+  <igx-icon fontSet="material" color="#FFFF00">PatchValue</igx-icon>
+  <span>Edit</span>
+</button>
+<button igxButton="raised" displayDensity="cosy" igxRipple (click)="InsertCustomer()">
+  <igx-icon fontSet="material" color="#FFFF00">Create</igx-icon>
+  <span>Insert</span>
+</button>
+
+<button igxButton="raised" displayDensity="cosy" igxRipple (click)="UpdateCustomer()">
+  <igx-icon fontSet="material" color="#FFFF00">Edit</igx-icon>
+  <span>Update</span>
+</button>
+<button igxButton="raised" displayDensity="cosy" igxRipple (click)="deleteCustomer()">
+  <igx-icon fontSet="material" color="#FFFF00">Delete</igx-icon>
+  <span>Delete</span>
+</button> -->

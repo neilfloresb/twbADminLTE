@@ -1,0 +1,179 @@
+<div class="main" igxLayout>
+  <igx-nav-drawer #nav id="navigation" [isOpen]="drawerState.open" [(pin)]="drawerState.pin" [pinThreshold]="0">
+    <ng-template igxDrawer>
+      <nav>
+        <div class="nav-header">
+
+          <!-- <img src="/assets/img/TWINBEElogomain2021.png" class="mx-auto d-block"> -->
+          <img [src]='logo' class="mx-auto d-block">
+
+        </div>
+        <span igxDrawerItem [isHeader]="true">{{title}} MAIN</span>
+        <span igxDrawerItem [isHeader]="true" (click)="showSubMenu(1)">Tables</span>
+        <!-- <span igxDrawerItem [isHeader]="true" (click)="showSubMenu(1)"
+          style="width: 100%; text-align: right; padding-left: 0">
+          Table(s)
+          <igx-icon *ngIf="showFirstGroup" fontSet="material" style="vertical-align: middle">keyboard_arrow_right
+          </igx-icon>
+          <igx-icon *ngIf="!showFirstGroup" fontSet="material" style="vertical-align: middle">keyboard_arrow_right
+          </igx-icon>
+       // </span> -->
+        <div *ngIf="showFirstGroup">
+          <span igxDrawerItem igxRipple [routerLink]="['/home/customer/customerlist']"
+            routerLinkActive="router-link-active">
+            <igx-icon fontSet="material" color="#ffcc29">business</igx-icon>
+            <span>{{ navItems[0].text }}</span>
+          </span>
+          <!-- <span igxDrawerItem igxRipple [routerLink]="['supplier']" routerLinkActive="router-link-active">
+            <igx-icon color="#e41c77">add_shopping_cart</igx-icon>
+            <span>{{ navItems[1].text }}</span>
+          </span>
+          <span igxDrawerItem igxRipple [routerLink]="['delivery']" routerLinkActive="router-link-active">
+            <igx-icon fontSet="material" color="#e41c77">airplanemode_active</igx-icon>
+            <span>{{ navItems[2].text }}</span>
+          </span>
+          <span igxDrawerItem igxRipple [routerLink]="['drd']" routerLinkActive="router-link-active">
+            <igx-icon fontSet="material" color="#e41c77">flight_takeoff</igx-icon>
+            <span>{{ navItems[3].text }}</span>
+          </span> -->
+          <!-- <span igxDrawerItem igxRipple [routerLink]="['navsubmenu']" routerLinkActive="router-link-active">
+            <igx-icon fontSet="material" color="#e41c77">menu_book</igx-icon>
+            <span>{{ navItems[4].text }}</span>
+          </span> -->
+        </div>
+        <span igxDrawerItem [isHeader]="true" (click)="showSubMenu(2)">QUOTATION</span>
+        <div *ngIf="showSecondGroup">
+          <span igxDrawerItem igxRipple [routerLink]="['quotation']" routerLinkActive="router-link-active">
+            <igx-icon fontSet="material" color="#ffcc29">subject</igx-icon>
+            <span>{{ navItems[5].text }}</span>
+          </span>
+        </div>
+        <span igxDrawerItem [isHeader]="true" (click)="showSubMenu(3)">SALES ORDER</span>
+        <div *ngIf="showThirdGroup">
+          <span igxDrawerItem igxRipple [routerLink]="['gledger']" routerLinkActive="router-link-active">
+            <igx-icon fontSet="material" color="#ffcc29">menu_book</igx-icon>
+            <span>{{ navItems[6].text }}</span>
+          </span>
+        </div>
+        <span igxDrawerItem [isHeader]="true" (click)="showSubMenu(4)">DELIVERY ORDER</span>
+        <div *ngIf="showFourthGroup">
+          <span igxDrawerItem igxRipple [routerLink]="['gledger']" routerLinkActive="router-link-active">
+            <igx-icon fontSet="material" color="#ffcc29">menu_book</igx-icon>
+            <span>{{ navItems[6].text }}</span>
+          </span>
+        </div>
+        <!-- <span *ngFor="let item of navItems" igxDrawerItem [active]="item.text === selected" igxRipple
+          (click)="navigate(item)">
+          <igx-icon fontSet="material">{{ item.name }}</igx-icon>
+          <span>{{ item.text }}</span>
+        </span> -->
+        <span igxDrawerItem [isHeader]="true" (click)="showSubMenu(6)">BILLING Statement</span>
+        <div *ngIf="showSixthGroup">
+          <span igxDrawerItem igxRipple [routerLink]="['billing']" routerLinkActive="router-link-active">
+            <igx-icon fontSet="material" color="#ffcc29">file-invoice</igx-icon>
+            <span>{{ navItems[8].text }}</span>
+          </span>
+        </div>
+
+          <span igxDrawerItem [isHeader]="true" (click)="showSubMenu(7)">Payment</span>
+          <div *ngIf="showSevenGroup">
+            <span igxDrawerItem igxRipple [routerLink]="['payment']" routerLinkActive="router-link-active">
+              <igx-icon fontSet="material" color="#ffcc29">file-invoice</igx-icon>
+              <span>{{ navItems[9].text }}</span>
+            </span>
+          </div>
+      </nav>
+    </ng-template>
+  </igx-nav-drawer>
+
+
+  <div igxFlex igxLayout igxLayoutDir="columns">
+    <igx-navbar [title]="title" actionButtonIcon="arrow_back" (onAction)="nav.toggle()">
+      <!-- <li><a href="#">Web Design</a></li> -->
+      <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+      <span>UserName: {{currentUser | uppercase }}</span>
+
+      <!-- <igx-icon>search</igx-icon>
+      <igx-icon>favorite</igx-icon> -->
+      <igx-icon>home</igx-icon>
+    </igx-navbar>
+    <div class="twinbee-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<!-- <div class="main" igxLayout>
+  <button (click)="drawerState.open = !drawerState.open">Open</button>
+
+  <igx-nav-drawer id="navigation" [isOpen]="drawerState.open" [(pin)]="drawerState.pin">
+    <ng-template igxDrawer>
+      <nav>
+        <span igxDrawerItem [isHeader]="true">Components</span>
+
+        <span *ngFor="let item of navItems" igxDrawerItem [active]="item.text === selected" igxRipple
+          (click)="navigate(item)">
+          <igx-icon fontSet="material">{{ item.name }}</igx-icon>
+          <span>{{ item.text }}</span>
+        </span>
+      </nav>
+    </ng-template>
+
+    <ng-template igxDrawerMini *ngIf="drawerState.miniTemplate">
+      <nav>
+        <span *ngFor="let item of navItems" igxDrawerItem [active]="item.text === selected" igxRipple
+          (click)="navigate(item)">
+          <igx-icon fontSet="material">{{ item.name }}</igx-icon>
+        </span>
+      </nav>
+    </ng-template>
+  </igx-nav-drawer>
+
+  <main igxFlex [class.mini-padding]="!drawerState.pin && drawerState.miniTemplate">
+    <span igxButton="icon" igxToggleAction="navigation">
+      <igx-icon fontSet="material">menu</igx-icon>
+    </span>
+
+    <h2>
+      Selected: <span class="setting-title">{{ selected }}</span>
+    </h2>
+    <section>
+      <h5 class="setting-title">Mode</h5>
+      <div>
+        <igx-switch (ngModelChange)="drawer.toggle()" [(ngModel)]="drawerState.pin">
+          Pin
+        </igx-switch>
+      </div>
+      <div>
+        <igx-switch (ngModelChange)="drawer.toggle()" [(ngModel)]="drawerState.miniTemplate">
+          Mini variant
+        </igx-switch>
+      </div>
+    </section>
+    <section>
+      <h5 class="setting-title">Touch gestures</h5>
+      <div>
+        <igx-switch [(ngModel)]="drawer.enableGestures" [checked]="true" [disabled]="drawerState.pin">
+          Enable gestures
+        </igx-switch>
+        <p class="setting-note">
+          Swipe or drag from the edge area to open or to close.
+          Unpin and try it out on a mobile device.
+        </p>
+      </div>
+    </section>
+    <section>
+      <h5 class="setting-title">Position</h5>
+      <div class="setting-container radio">
+        <igx-radio *ngFor="let item of ['left', 'right']" value="{{item}}" name="group" [(ngModel)]="drawer.position"
+          [disabled]="drawerState.pin">{{item}}</igx-radio>
+        <p class="setting-note">
+          Unpin to try it out.
+        </p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div>
+  <router-outlet></router-outlet>
+</div> -->

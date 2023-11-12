@@ -1,0 +1,131 @@
+@import "~igniteui-angular/lib/core/styles/themes/index";
+
+.content-wrap {
+  display: flex;
+  height: 100%;
+}
+
+.main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+// main {
+//   padding: 1rem 2rem;
+// }
+
+.contentDisplay {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: stretch;
+  padding: 0 10px;
+  overflow: auto;
+  margin: 10px;
+}
+
+// .nav-header {
+//   display: flex;
+//   align-items: center;
+//   padding: 24px 16px;
+//   height: 120px;
+// }
+
+@media only screen and (max-width: 1024px) {
+  .content {
+    padding: 0 15px;
+    justify-content: flex-start;
+  }
+}
+
+// main.mini-padding {
+//   padding: 1rem calc(1rem + 60px);
+// }
+
+// .igx-nav-drawer__aside::-webkit-scrollbar {
+//   width: 3px;
+//   background: #e4e4e4;
+// }
+
+// .igx-nav-drawer__aside::-webkit-scrollbar-thumb {
+//   background: #66a6ce;
+//   border-radius: 0;
+// }
+
+:host {
+  display: block;
+  height: 100%;
+
+  $custom-theme: igx-navdrawer-theme(
+    $background: #035375,
+    $item-active-background: #ecc256,
+    $item-header-text-color: #f3c03e,
+  );
+
+  // @include igx-css-vars($custom-theme);
+
+  /* Using Theme Overrides to provide IE 11 support.
+     * NOTE: Theming using this approach will greatly increase the size
+     * of the output CSS. If you do not plan to target IE 11,
+     * delete this section and use the `igx-css-vars` mixin as shown above.
+    **/
+  ::ng-deep {
+    @include igx-navdrawer($custom-theme);
+    .igx-navbar {
+      height: 43px;
+    }
+    .igx-nav-drawer {
+      //width: 100px;
+      width: 70%;
+    }
+    // .igx-nav-drawer__aside {
+    //   max-width: 100%;
+    // }
+    // .igx-nav-drawer__aside--pinned{
+    //   width: 70%;
+    // }
+  }
+}
+// .main {
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     overflow: hidden;
+// }
+
+// main {
+//     padding: 1rem 2rem;
+// }
+
+// main.mini-padding {
+//     padding: 1rem calc(1rem + 60px);
+// }
+
+// /* Sample styling */
+// .setting-title {
+//     margin-bottom: 0;
+//     color: rgba(228, 28, 119, 0.8) /*#e41c77cc*/ ;
+// }
+
+// .setting-note {
+//     font-size: 14px;
+//     color: #484848;
+//     margin: 4px 0;
+// }
+
+// .igx-nav-drawer__aside::-webkit-scrollbar {
+//     width: 3px;
+//     background: #e4e4e4;
+// }
+
+// .igx-nav-drawer__aside::-webkit-scrollbar-thumb {
+//     background: #0375be;
+//     border-radius: 0;
+// }

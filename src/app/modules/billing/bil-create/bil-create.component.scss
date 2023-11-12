@@ -1,0 +1,186 @@
+my-app {
+  display: block;
+  box-sizing: border-box;
+  padding: 30px;
+}
+my-app > .k-icon.k-i-loading {
+  font-size: 64px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.mhdr {
+  width: 100%;
+  height: 100%;
+  background: #e0e0e0;
+  padding: 8px;
+}
+
+.hdright {
+  // display: flex;
+  // height: 225px;
+  // width: 600px;
+  // padding: 8px;
+  // margin: 8px;
+  // background: #e41c77;
+  //  border: solid 1px black;
+  //color: white;
+
+  .hdr2 {
+    align-items: center;
+    height: 48px;
+    width: 200px;
+    padding: 3px;
+    margin: 3px;
+    flex-grow: 1;
+    background: #130f11;
+    color: white;
+  }
+}
+
+.hdrleft {
+  // display: flex;
+  // height: 225px;
+  padding: 3px;
+  //margin: 8px;
+  // background: #e41c77;
+  //border: solid 1px black;
+  // color: white;
+  .hdr2 {
+    height: 48px;
+    padding: 3px;
+    margin: 3px;
+    background: #130f11;
+    color: white;
+  }
+
+  .k-form .k-floating-label-container {
+    color: #1254ce;
+    font-weight: bold;
+    width: 235px;
+  }
+}
+kendo-datepicker {
+  width: 170px;
+}
+
+kendo-combobox {
+  width: 300px;
+}
+
+:host {
+  ::ng-deep {
+    background-color: #fff;
+    // .myBackground {
+    //   background-color: lightblue;
+    // }
+    // .igx-grid__th {
+    //   text-align: center;
+    //   color: green;
+    //   font-weight: bold;
+    // }
+    .igx-input-group {
+      color: rgb(247, 129, 62);
+      font-weight: bold;
+    }
+    .igx-input-group--cosy .igx-input-group__input {
+      //height: 1.6842105263rem;
+      color: blue;
+      // background-color: #fff;
+    }
+
+    // .igx-typography .igx-input-group__input,
+    // .igx-typography .igx-input-group__textarea {
+    //   // font-weight: 400;
+    //   // font-size: 1rem;
+    //   // letter-spacing: 0.009375rem;
+    //   // text-transform: none;
+    //   // line-height: 1.5rem;
+    //   // margin: 0;
+    //   color: blue;
+    // }
+    .igx-combo {
+      width: -webkit-fill-available;
+    }
+    // .igx-input-group__input,
+    .igx-input-group__input {
+      color: blue;
+      font-weight: bold;
+    }
+    .igx-input-group__textarea {
+      color: blue;
+      min-width: 400px;
+      min-height: 70px;
+      // background-color: #fff;
+      //  width: min-content;
+    }
+  }
+}
+.k-form .k-floating-label-container {
+  color: #ce5712;
+  font-weight: bold;
+  //  width: 335px;
+}
+
+.layout-box__el {
+  height: 28px;
+  padding: 8px;
+  margin: 8px;
+  // background: #e41c77;
+  // color: white;
+}
+// .k-combobox .k-input {
+//   width: 250px;
+// }
+
+.ctrlno {
+  .igx-input-group--cosy .igx-input-group__input {
+    color: yellow;
+  }
+  font-weight: red;
+  // height: 28px;
+  padding: 8px;
+  margin: 8px;
+}
+
+@import "~igniteui-angular/lib/core/styles/themes/index";
+:host {
+  ::ng-deep {
+    .igx-grid__td {
+      color: #b22222;
+      font-weight: bold;
+    }
+    textarea {
+      width: 400px;
+    }
+    .igx-button--flat {
+      justify-content: left;
+    }
+
+    $new-grid-theme: igx-grid-theme(
+      $row-odd-background: rgba(179, 229, 252, 1),
+      $row-even-background: rgba(255, 249, 196, 1),
+      $row-odd-text-color: rgba(50, 0, 100, 0.74),
+      $row-even-text-color: rgba(128, 33, 77, 0.74),
+    );
+
+    @include igx-grid($new-grid-theme);
+    .igx-grid__th {
+      text-align: center;
+      color: blue;
+      font-weight: bolder;
+      font-size: 10pt;
+    }
+    .igx-grid__td {
+      //color: #b22222;
+      color: #000000;
+      font-weight: bold;
+      font-size: 10pt;
+    }
+
+    .igx-dialog__window {
+      height: 750px;
+    }
+  }
+}

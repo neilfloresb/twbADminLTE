@@ -1,0 +1,70 @@
+<h5 class="Twinbee-title titlealign"> <strong class="badge badge-primary">Generate Job Order</strong></h5>
+<h5 class="titlealign"><strong class="badge badge-success">Quotation No: </strong> <span>
+    <strong>{{current_sqno}}</strong></span> </h5>
+
+<div class="twinbee-content ">
+  <div igxLayout igxLayoutDir="column" igxLayoutJustify="space-between">
+    <div class="layout-box">
+      <igx-grid #gridforJO [data]="quoteDtlData" [primaryKey]="'seqlineno'" width="1000px" height="280px"
+        displayDensity="compact" [rowSelection]="'multiple'" (onSelection)="handleSelection($event)"
+        (onColumnInit)="initColumns($event)" (onRowSelectionChange)="log($event)">
+        <igx-column width="100px" [field]="'seqlineno'" [hidden]="true"></igx-column>
+        <igx-column width="100px" [field]="'sqno'" [dataType]="'string'"></igx-column>
+        <igx-column width="250px" field="desc" header="Project Name" [dataType]="'string'"></igx-column>
+        <igx-column width="140px" field="size" header="SIZE" [dataType]="'string'"></igx-column>
+        <igx-column width="95px" [field]="'qty_order'" header="QTY" [dataType]="'number'"></igx-column>
+        <igx-column width="70px" field="um" header="U/M" [dataType]="'string'">
+        </igx-column>
+        <igx-column width="300px" field="materials" header="Material" [dataType]="'string'">
+        </igx-column>
+        <!-- <igx-column width="200px" field="finishing" header="Finish" [dataType]="'string'"></igx-column> -->
+      </igx-grid>
+    </div>
+    <div class="buttons-wrapper" igxLayout igxLayoutJustify="space-around">
+      <button class="btngap" igxButton="raised" (click)="getSelectedrows()" igxRipple>Select to Generate J.O</button>
+      <button class="btngap" igxButton="raised" (click)="ViewforPrintJo()" igxRipple>Print Job Order</button>
+    </div>
+  </div>
+</div>
+<igx-dialog #alert title="Job Order Notification!" message="Please SELECT to Generate Job Order!!!" leftButtonLabel="OK"
+  (onLeftButtonSelect)="alert.close()" [positionSettings]="positionSettings">
+</igx-dialog>
+
+<igx-dialog #viewPrint title="Job Order Listing!      ( SELECT Job Order to Print )" leftButtonLabel="Close"
+  (onLeftButtonSelect)="viewPrint.close()" [positionSettings]="positionSettings" (onRightButtonSelect)="PrintJoborder($event)"rightButtonLabel="Print" >
+  <div class="layout-box">
+    <igx-grid #joPrint [data]="JoOrderListdata" [primaryKey]="'jolineno'" width="800px" height="240px"
+      displayDensity="compact" (onSelection)="handlePrintSelection($event)">
+      <igx-column width="100px" [field]="'jolineno'" [hidden]="true"></igx-column>
+      <igx-column width="100px" [field]="'joborderno'" [dataType]="'string'"></igx-column>
+      <igx-column width="250px" field="itemdesc" header="Project Name" [dataType]="'string'"></igx-column>
+      <igx-column width="140px" field="size" header="SIZE" [dataType]="'string'"></igx-column>
+      <igx-column width="80px" field="um" header="UM" [dataType]="'string'"></igx-column>
+      <igx-column width="85px" [field]="'qty'" header="QTY" [dataType]="'number'"></igx-column>
+      <igx-column width="150px" field="materials" header="Materials" [dataType]="'string'">
+      </igx-column>
+    </igx-grid>
+  </div>
+</igx-dialog>
+
+  <igx-dialog #dialogPrint title="Print Preview" [leftButtonLabel]="'Close'" (onLeftButtonSelect)="cancel()"
+    width="1200px" height="450px">
+    <div>
+     <tr-viewer #viewer1 [containerStyle]="viewerContainerStyle" [serviceUrl]="linkreport" *ngIf="rs" [reportSource]="rs"
+        [viewMode]="'INTERACTIVE'" [scaleMode]="'SPECIFIC'" [scale]="1.0" [ready]="ready"
+        [viewerToolTipOpening]="viewerToolTipOpening" [enableAccessibility]="false" [sendEmail]="{ enabled: 'true' }">
+      </tr-viewer>
+    </div>
+  </igx-dialog>
+
+
+<!-- jono: string;
+  jolineno: number;
+  itemdesc: string;
+  size: string;
+  um: string;
+  qty: number;
+  materials:string; -->
+
+<!-- <button class="btngap" igxButton="raised" (click)="getSelectedrows()" igxRipple>Next</button>
+<button class="btngap" igxButton="raised" (click)="ExportSelected($event)" igxRipple>Export</button> -->

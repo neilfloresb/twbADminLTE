@@ -1,0 +1,251 @@
+<div class="twinbee-column">
+  <div class="card my-app">
+    <div class="card-header text-center">
+      CREATE Payment
+    </div>
+    <div class="card-body">
+      <form novalidate class="k-form" [formGroup]="createForm" (ngSubmit)="addPayment()">
+        <div igxLayout igxLayoutJustify="space-between" gxLayoutItemAlign="flex-start"
+          *ngIf="viewCustomer$ | async as vc">
+          <!-- /* 1st column */ -->
+          <div class="hdrleft">
+            <!-- <div class="custcombo">
+              <igx-combo class="combo" #combocust [itemsMaxHeight]="230" formControlName="custid"
+                placeholder="Select Customer" searchPlaceholder="Search..." type="box" [displayDensity]="'cosy'"
+                [data]="vc.values" [valueKey]="'custid'" [displayKey]="'custname'"
+                (onSelectionChange)="singleCustSelection($event)">
+                <label igxLabel>Customer Name:</label>
+                <igx-prefix>
+                  <igx-icon>people</igx-icon>
+                </igx-prefix>
+              </igx-combo>
+            </div> -->
+
+            <div class="custcombo">
+              <kendo-floatinglabel text="Customer Name">
+                <kendo-combobox [data]="vc.values" formControlName="custid" textField="custname" valueField="custid"
+                  placeholder="Select Customer..." [valuePrimitive]="true" (valueChange)="onCustChange($event)">
+                  <!-- <ng-template kendoTextBoxPrefixTemplate>
+                                  <span class="k-icon k-i-email"></span>
+                                  <kendo-textbox-separator></kendo-textbox-separator>
+                                </ng-template> -->
+                </kendo-combobox>
+              </kendo-floatinglabel>
+            </div>
+            <div class="custcombo">
+
+              <kendo-floatinglabel text="Doc. Type">
+                <kendo-combobox [data]="_docType" formControlName="doctype" textField="name" valueField="type"
+                  placeholder="Select..." [valuePrimitive]="true" (valueChange)="onDocTypeChange($event)">
+                  <!-- <ng-template kendoTextBoxPrefixTemplate>
+                                                <span class="k-icon k-i-email"></span>
+                                                <kendo-textbox-separator></kendo-textbox-separator>
+                                              </ng-template> -->
+                </kendo-combobox>
+              </kendo-floatinglabel>
+
+              <!-- <igx-combo class="combo" #combodoctype [itemsMaxHeight]="220" formControlName="doctype"
+                placeholder="Select Customer" searchPlaceholder="Search..." type="box" [displayDensity]="'cosy'"
+                [data]="_docType" [valueKey]="'type'" [displayKey]="'name'"
+                (onSelectionChange)="singleDocTypeSelection($event)">
+                <label igxLabel>Docoment Type:</label>
+                <igx-prefix>
+                  <igx-icon>assignment</igx-icon>
+                </igx-prefix>
+              </igx-combo> -->
+            </div>
+            <div class="dtl_space">
+              <igx-input-group type="border" [displayDensity]="'cosy'">
+                <label igxLabel>Doc. Number:</label>
+                <input igxInput name="paydocno" formControlName="paydocno" readonly style='color:red' />
+                <igx-prefix>
+                  <igx-icon>tag</igx-icon>
+                </igx-prefix>
+              </igx-input-group>
+            </div>
+          </div>
+          <!-- /* end of 1st column */ -->
+
+          <!-- /* 2nd column */ -->
+          <div class="hdrleft">
+            <div class="numbox">
+              <kendo-floatinglabel text="Amount Paid">
+                <kendo-numerictextbox formControlName="amtpaid" unitprice="age" [style.width.px]="200"
+                  (valueChange)="onChange($event)">
+                </kendo-numerictextbox>
+              </kendo-floatinglabel>
+            </div>
+            <div class="numbox" *ngIf="amtapp$ | async as amtapp">
+              <kendo-floatinglabel text="Amount Applied">
+                <kendo-numerictextbox formControlName="amtap" unitprice="age" [style.width.px]="200" [spinners]="false"
+                  [value]='amtapp.appliedtax' [readonly]="true">
+                </kendo-numerictextbox>
+              </kendo-floatinglabel>
+            </div>
+            <div class="numbox">
+              <kendo-floatinglabel text="UnApplied Amt">
+                <kendo-numerictextbox formControlName="unamtap" [style.width.px]="200" [spinners]="false"
+                  [readonly]="true">
+                </kendo-numerictextbox>
+              </kendo-floatinglabel>
+            </div>
+
+          </div>
+          <!-- /* end of 2nd column */ -->
+
+          <!-- /* 3nd column */ -->
+          <div class="hdrleft">
+            <div class="dtl_space">
+              <igx-date-picker #trndate name="trndate" format="MM/dd/yyyy" [mode]="'dropdown'" formControlName="trndate"
+                cancelButtonLabel="close" todayButtonLabel="today" [value]="current_date" label="Transaction Date:"
+                displayDensity="compact" (onSelection)="ontrndateSelection($event)"
+                (valueChange)="valueTranChanged($event)" [formatter]="formatter">
+              </igx-date-picker>
+            </div>
+            <div class="dtl_space">
+
+              <kendo-floatinglabel text="Bank Name:">
+                <kendo-combobox [data]="vc.bankname" formControlName="bank" textField="bankname" valueField="bankcode"
+                  placeholder="Select..." [valuePrimitive]="true" (valueChange)="onBankNameChange($event)">
+                  <!-- <ng-template kendoTextBoxPrefixTemplate>
+                                                                <span class="k-icon k-i-email"></span>
+                                                                <kendo-textbox-separator></kendo-textbox-separator>
+                                                              </ng-template> -->
+                </kendo-combobox>
+              </kendo-floatinglabel>
+
+              <!-- <igx-combo class="combo" #cboBank [itemsMaxHeight]="220" formControlName="bank" placeholder="Select Bank"
+                searchPlaceholder="Search..." type="box" [displayDensity]="'cosy'" [data]="vc.bankname"
+                [valueKey]="'bankcode'" [displayKey]="'bankname'" (onSelectionChange)="singleBankSelection($event)">
+                <label igxLabel>BankName:</label>
+                <igx-prefix>
+                  <igx-icon>account_balance</igx-icon>
+                </igx-prefix>
+              </igx-combo> -->
+            </div>
+            <div class="dtl_space">
+              <kendo-floatinglabel text="Payment Type:">
+                <kendo-combobox [data]="_payType" formControlName="paytype" textField="name" valueField="type"
+                  placeholder="Select..." [valuePrimitive]="true" (valueChange)="onPaytypeChange($event)">
+                  <!-- <ng-template kendoTextBoxPrefixTemplate>
+                                                                              <span class="k-icon k-i-email"></span>
+                                                                              <kendo-textbox-separator></kendo-textbox-separator>
+                                                                            </ng-template> -->
+                </kendo-combobox>
+              </kendo-floatinglabel>
+              <!-- <igx-combo class="combo" #cboPayType [itemsMaxHeight]="220" formControlName="paytype"
+                placeholder="Select Payment Type" searchPlaceholder="Search..." type="box" [displayDensity]="'cosy'"
+                [data]="_payType" [valueKey]="'type'" [displayKey]="'name'"
+                (onSelectionChange)="singlePayTypeSelection($event)">
+                <label igxLabel>Payment Type:</label>
+                <igx-prefix>
+                  <igx-icon>assignment</igx-icon>
+                </igx-prefix>
+              </igx-combo> -->
+            </div>
+            <div class="dtl_space">
+              <igx-input-group type="border" [displayDensity]="'cosy'">
+                <label igxLabel>Cheque No.:</label>
+                <input igxInput name="chkno" formControlName="chkno" />
+                <igx-prefix>
+                  <igx-icon>tag</igx-icon>
+                </igx-prefix>
+              </igx-input-group>
+            </div>
+
+          </div>
+          <!-- /* end of 3rd column */ -->
+
+          <!-- /* 4th column */ -->
+          <div class="hdrleft">
+            <div class="dtl_space">
+              <igx-input-group type="border" [displayDensity]="'cosy'">
+                <label igxLabel>Status:</label>
+                <input igxInput name="status" formControlName="status" readonly />
+                <igx-prefix>
+                  <igx-icon>tag</igx-icon>
+                </igx-prefix>
+              </igx-input-group>
+            </div>
+            <div class="dtl_space">
+              <igx-date-picker #trndate name="chkdate" format="MM/dd/yyyy" [mode]="'dropdown'" formControlName="chkdate"
+                cancelButtonLabel="close" todayButtonLabel="today" [value]="current_date" label="Cheque Date:"
+                displayDensity="compact" (onSelection)="onChkDateSelection($event)"
+                (valueChange)="valueChkDateChanged($event)" [formatter]="formatter">
+              </igx-date-picker>
+            </div>
+            <div class="dtl_space">
+              <igx-input-group type="border" [displayDensity]="'cosy'">
+                <label igxLabel>Ref. No.:</label>
+                <input igxInput name="refno" formControlName="refno" />
+                <igx-prefix>
+                  <igx-icon>tag</igx-icon>
+                </igx-prefix>
+              </igx-input-group>
+            </div>
+            <div class="dtl_space">
+              <div class="custcombo">
+                <igx-input-group type="border" [displayDensity]="'cosy'">
+                  <label igxLabel>Remarks:</label>
+                  <input igxInput name="remarks" formControlName="remarks" />
+                  <igx-prefix>
+                    <igx-icon>tag</igx-icon>
+                  </igx-prefix>
+                </igx-input-group>
+              </div>
+              <!-- <igx-input-group type="border" [displayDensity]="'cosy'">
+                            <label igxLabel>Bill To / Remarks</label>
+                            <textarea igxInput name="remarks" formControlName="remarks"></textarea>
+                            <igx-prefix>
+                              <igx-icon>sticky_note_2</igx-icon>
+                            </igx-prefix>
+                          </igx-input-group> -->
+            </div>
+
+            <div igxLayout igxLayoutDir="row" igxLayoutJustify="space-between">
+              <!-- <div class="layout-box__el">
+                <igx-date-picker #trndate name="trndate" format="MM/dd/yyyy" [mode]="'dropdown'"
+                  formControlName="trndate" cancelButtonLabel="close" todayButtonLabel="today" [value]="current_date"
+                  label="Transaction Date:" displayDensity="compact" (onSelection)="onSdateSelection($event)"
+                  (valueChange)="valueChanged($event)" [formatter]="formatter">
+                </igx-date-picker>
+              </div> -->
+              <!-- <div class="layout-box__el">
+                <igx-date-picker #trndate name="trndate" format="MM/dd/yyyy" [mode]="'dropdown'"
+                  formControlName="trndate" cancelButtonLabel="close" todayButtonLabel="today" [value]="current_date"
+                  label="Transaction Date:" displayDensity="compact" (onSelection)="onSdateSelection($event)"
+                  (valueChange)="valueChanged($event)" [formatter]="formatter">
+                </igx-date-picker>
+              </div> -->
+            </div>
+          </div>
+          <!-- /* end of 4th column */ -->
+        </div>
+        <div class="btnNext">
+          <button class="btngap" igxButton="raised" [disabled]="!createForm.valid" igxRipple type="submit">Next</button>
+        </div>
+        <!-- <div class="btn-container">
+          <button igxButton="raised" igxRipple (click)="toggleItem('OR')">Toggle "Connecticut" </button>
+        </div> -->
+
+        <!--  -->
+        <!-- <div class="custcombo">
+          <igx-combo class="combo" #combosample [itemsMaxHeight]="230" formControlName="custid" placeholder="Select Customer"
+            searchPlaceholder="Search..." type="box" [displayDensity]="'cosy'" [data]="_customers$" [valueKey]="'custid'"
+            [displayKey]="'custname'" (onSelectionChange)="singleCustSelection($event)">
+            <label igxLabel>Customer Name:</label>
+            <igx-prefix>
+              <igx-icon>people</igx-icon>
+            </igx-prefix>
+          </igx-combo>
+        </div> -->
+
+
+        <!--  -->
+      </form>
+
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<kendo-dialog *ngIf="active" [width]="400" [height]="650" (close)="closeForm()">
+  <kendo-dialog-titlebar>
+    {{ isNew ? 'Add new customer' : 'Edit customer' }}
+  </kendo-dialog-titlebar>
+
+  <form novalidate class="k-form" [formGroup]="editForm">
+    <kendo-formfield>
+      <kendo-label [for]="custname" text="Customer Name"></kendo-label>
+      <input formControlName="custname" kendoTextBox #custname required />
+
+      <kendo-formhint>Type customer name</kendo-formhint>
+      <kendo-formerror>Error: customer name is required</kendo-formerror>
+    </kendo-formfield>
+
+    <kendo-formfield>
+      <kendo-label [for]="cperson" text="Contact Person"></kendo-label>
+      <input formControlName="cperson" kendoTextBox #cperson />
+
+      <kendo-formhint>Type Contact Person</kendo-formhint>
+    </kendo-formfield>
+
+    <kendo-formfield>
+      <kendo-label [for]="cposition" text="Position"></kendo-label>
+      <input formControlName="cposition" kendoTextBox #cposition />
+    </kendo-formfield>
+
+    <kendo-formfield>
+      <kendo-label [for]="ccontact" text="Contact No."></kendo-label>
+      <input formControlName="ccontact" kendoTextBox #ccontact />
+    </kendo-formfield>
+
+    <kendo-formfield>
+      <kendo-label [for]="emailadd" text="Email Address"></kendo-label>
+      <input formControlName="emailadd" kendoTextBox #emailadd />
+    </kendo-formfield>
+
+    <kendo-formfield>
+      <kendo-label [for]="tin" text="TIN No."></kendo-label>
+      <input formControlName="tin" kendoTextBox #tin required />
+
+      <kendo-formhint>Type TIN No.</kendo-formhint>
+      <kendo-formerror>Error: TIN No. is required</kendo-formerror>
+    </kendo-formfield>
+
+  </form>
+
+  <kendo-dialog-actions>
+    <button class="k-button" (click)="onCancel($event)">Cancel</button>
+    <button class="k-button k-primary" [disabled]="!editForm.valid" (click)="onSave($event)">Save</button>
+  </kendo-dialog-actions>
+</kendo-dialog>

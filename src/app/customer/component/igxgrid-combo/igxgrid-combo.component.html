@@ -1,0 +1,28 @@
+<p>igxgrid-combo works!</p>
+<div class="grid__wrapper">
+  <igx-grid #grid [data]="data" primaryKey="ID" cellSelection="none" height="600px" width="100%"
+    (onCellEdit)="editDone($event)">
+    <igx-column field='ContactName'></igx-column>
+    <igx-column field='Date' dataType="date"></igx-column>
+    <igx-column field='Country'></igx-column>
+    <igx-column field='CompanyName' editable="true">
+      <ng-template igxCellEditor let-cell="cell">
+
+        <igx-input-group #inputGroup [igxToggleAction]="dropDown">
+          <input type="text" igxInput [igxDropDownItemNavigation]="dropDown" [ngModel]="cell.value" />
+          <igx-suffix igxButton="icon" igxRipple>
+            <igx-icon>arrow_drop{{ dropDown.collapsed ? '_down' : '_up' }}</igx-icon>
+          </igx-suffix>
+        </igx-input-group>
+
+        <igx-drop-down #dropDown (onSelection)="onSelection($event, cell)">
+          <igx-drop-down-item *ngFor="let item of companies">
+            {{ item }}
+          </igx-drop-down-item>
+        </igx-drop-down>
+
+      </ng-template>
+    </igx-column>
+    <igx-column field='Comment' width="25%" editable="true" [cellClasses]="backgroundClasses"></igx-column>
+  </igx-grid>
+</div>

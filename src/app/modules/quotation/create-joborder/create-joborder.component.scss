@@ -1,0 +1,33 @@
+.titlealign {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.layout-box {
+  //height: 35px;
+  padding: 8px;
+  margin: 2px;
+  //width: 400px;
+  color: rgb(82, 25, 25);
+}
+
+:host {
+  ::ng-deep {
+    .myBackground {
+      background-color: lightblue;
+    }
+    .igx-grid__th {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+    }
+    .igx-grid__td {
+      color: blue;
+      font-weight: bold;
+    }
+    .igx-button--raised{
+      padding: 5px;
+      background-color: #76FF03;
+    }
+  }
+}

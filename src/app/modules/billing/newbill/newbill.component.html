@@ -1,0 +1,121 @@
+<div class="twinbee-column">
+  <div class="card my-app">
+    <div class="card-header text-center">
+      CREATE BILLING
+    </div>
+    <div class="card-body">
+      <form novalidate class="k-form" [formGroup]="createForm" (ngSubmit)="addBillHdr()">
+        <div igxLayout igxLayoutJustify="space-between" gxLayoutItemAlign="flex-start">
+          <div class="hdrleft">
+            <div class="hdrleft" *ngIf="viewCustomer$ | async as vc">
+              <igx-combo class="combo" #combocust [itemsMaxHeight]="230" formControlName="custid"
+                placeholder="Select Customer" searchPlaceholder="Search..." type="box" [displayDensity]="'cosy'"
+                [data]="vc.values" [valueKey]="'custid'" [displayKey]="'custname'"
+                (onSelectionChange)="singleCustSelection($event)">
+                <label igxLabel>Customer Name:</label>
+                <igx-prefix>
+                  <igx-icon>people</igx-icon>
+                </igx-prefix>
+              </igx-combo>
+            </div>
+            <div class="hdrleft">
+              <igx-input-group type="border" [displayDensity]="'cosy'">
+                <label igxLabel>Bill To / Remarks</label>
+                <textarea igxInput name="billto" formControlName="billto"></textarea>
+                <igx-prefix>
+                  <igx-icon>sticky_note_2</igx-icon>
+                </igx-prefix>
+              </igx-input-group>
+            </div>
+          </div>
+
+          <div class="hdright">
+            <div igxLayout igxLayoutDir="row" igxLayoutJustify="space-between">
+              <div class="layout-box__el">
+                <igx-input-group type="border" [displayDensity]="'cosy'" width="'50px'">
+                  <label igxLabel>Page:</label>
+                  <input igxInput name="page" formControlName="page" width="'50px'" />
+                  <igx-prefix>
+                    <igx-icon>tag</igx-icon>
+                  </igx-prefix>
+                </igx-input-group>
+              </div>
+              <div class="layout-box__el">
+                <igx-date-picker #trndate name="trndate" format="MM/dd/yyyy" [mode]="'dropdown'"
+                  formControlName="trndate" cancelButtonLabel="close" todayButtonLabel="today" [value]="current_date"
+                  label="Transaction Date:" displayDensity="compact" (onSelection)="onSdateSelection($event)"
+                  (valueChange)="valueChanged($event)" [formatter]="formatter">
+                </igx-date-picker>
+              </div>
+              <div class="layout-box__el">
+                <igx-input-group type="border" [displayDensity]="'cosy'" width="'50px'">
+                  <label igxLabel>Bill No.:</label>
+                  <input igxInput name="billseries" formControlName="billseries" width="'50px'" />
+                  <igx-prefix>
+                    <igx-icon>tag</igx-icon>
+                  </igx-prefix>
+                </igx-input-group>
+              </div>
+            </div>
+            <div igxLayout igxLayoutDir="row" igxLayoutJustify="space-between">
+              <div class="layout-box__el" *ngIf="viewTerms$ | async as terms">
+                <!-- <kendo-floatinglabel text="Select Terms">
+                  <kendo-combobox [data]="_terms" formControlName="terms" textField="termname" valueField="termid"
+                    placeholder="Select Terms..." [valuePrimitive]="true" (valueChange)="onTermChange($event)">
+                  </kendo-combobox>
+                </kendo-floatinglabel> -->
+
+                <igx-combo class="combo" #combocust [itemsMaxHeight]="230" formControlName="terms"
+                  placeholder="Select Terms" searchPlaceholder="Search..." type="box" [displayDensity]="'cosy'"
+                  [data]="terms" [valueKey]="'termid'" [displayKey]="'termname'"
+                  (onSelectionChange)="singleTermsSelection($event)">
+                  <label igxLabel>Terms:</label>
+                  <igx-prefix>
+                    <igx-icon>schedule</igx-icon>
+                  </igx-prefix>
+                </igx-combo>
+
+              </div>
+              <div class="layout-box__el">
+                <igx-date-picker #duedate name="duedate" format="MM/dd/yyyy" [mode]="'dropdown'"
+                  formControlName="duedate" cancelButtonLabel="close" todayButtonLabel="today" [value]="current_date"
+                  label="Due Date:" displayDensity="compact" (onSelection)="onSdateSelectionDue($event)"
+                  (valueChange)="valueChangedDue($event)" [formatter]="formatter">
+                </igx-date-picker>
+              </div>
+              <div class="layout-box__el">
+                <igx-input-group type="border" [displayDensity]="'cosy'">
+                  <label igxLabel>P.O. No.:</label>
+                  <input igxInput name="pono" formControlName="pono" />
+                  <igx-prefix>
+                    <igx-icon>tag</igx-icon>
+                  </igx-prefix>
+                </igx-input-group>
+              </div>
+            </div>
+            <div igxLayout igxLayoutDir="row" igxLayoutJustify="space-between">
+              <div class="layout-box__el"></div>
+              <div class="layout-box__el"></div>
+              <div class="layout-box__el">
+                <igx-input-group type="border" [displayDensity]="'cosy'">
+                  <label igxLabel>Issued By:</label>
+                  <input igxInput name="issuedby" formControlName="issuedby" />
+                  <igx-prefix>
+                    <igx-icon>tag</igx-icon>
+                  </igx-prefix>
+                </igx-input-group>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout-box__el hdrleft">
+          <button class="btngap" igxButton="raised" [disabled]="!createForm.valid" igxRipple type="submit">Next</button>
+        </div>
+
+      </form>
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<!-- <p>quote-tel works!</p> -->
+
+<div class="twinbee-displaycontent">
+  <!-- <span class="k-icon k-i-loading" style="color: #ff6358"></span> -->
+  <kendo-grid [data]="view2 | async" [height]="433" [pageSize]="gridState.take" [skip]="gridState.skip"
+    [sort]="gridState.sort" [pageable]="true" [sortable]="true" (dataStateChange)="onStateChange($event)"
+    (edit)="editHandler($event)" (remove)="removeHandler($event)" (add)="addHandler($event)">
+    <ng-template kendoGridToolbarTemplate>
+      <button kendoGridAddCommand>Add new</button>
+    </ng-template>
+    <kendo-grid-column field="ProductName" title="Product Name"></kendo-grid-column>
+    <!-- <kendo-grid-column field="UnitPrice" title="Price"></kendo-grid-column> -->
+    <kendo-grid-column field="Discontinued" title="Discontinued"></kendo-grid-column>
+    <kendo-grid-column field="UnitsInStock" title="Units In Stock"></kendo-grid-column>
+    <kendo-grid-command-column title="command" width="220">
+      <ng-template kendoGridCellTemplate>
+        <button kendoGridEditCommand [primary]="true">Edit</button>
+        <button kendoGridRemoveCommand>Delete</button>
+      </ng-template>
+    </kendo-grid-command-column>
+  </kendo-grid>
+
+  <!--  -->
+  <!--  -->
+  <!-- <kendo-grid [data]="custView | async" [height]="433" [pageSize]="gridState.take" [skip]="gridState.skip"
+    [sort]="gridState.sort" [pageable]="true" [sortable]="true" (dataStateChange)="onStateChange($event)" (add)="addHandler($event)"
+    (edit)="editHandler2($event)">
+    <ng-template kendoGridToolbarTemplate>
+      <button kendoGridAddCommand>Add new</button>
+    </ng-template>
+    <kendo-grid-column field="custid" title="Customer ID"></kendo-grid-column>
+    <kendo-grid-column field="custname" title="Customer Name"></kendo-grid-column>
+    <kendo-grid-column field="cperson" title="Contact Person"></kendo-grid-column>
+    <kendo-grid-command-column title="command" width="220">
+      <ng-template kendoGridCellTemplate>
+        <button kendoGridEditCommand [primary]="true">Edit</button>
+        <button kendoGridRemoveCommand>Delete</button>
+      </ng-template>
+    </kendo-grid-command-column>
+  </kendo-grid> -->
+  <!--  -->
+  <!--  -->
+  <!-- <kendo-grid-edit-form [model]="editDataItem" [isNew]="isNew" (save)="saveHandler($event)" (cancel)="cancelHandler()">
+  </kendo-grid-edit-form> -->
+
+  <app-grid-edit-form2 [model]="editDataItem" [isNew]="isNew" (save)="saveHandler($event)" (cancel)="cancelHandler()">
+  </app-grid-edit-form2>
+
+
+  <!--  -->
+  <!-- <app-custform-edit  [model]="custDataItem" [isNew]="isNew" (save)="saveHandler2($event)" (cancel)="cancelHandler()">
+  </app-custform-edit> -->
+</div>

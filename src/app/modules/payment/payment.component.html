@@ -1,0 +1,13 @@
+<igx-tabs>
+  <igx-tab-item label="Create Payment" routerLink="create" routerLinkActive #rla1="routerLinkActive"
+    [isSelected]="rla1.isActive"></igx-tab-item>
+
+  <igx-tab-item label="Payment List" routerLink="list" routerLinkActive #rla2="routerLinkActive"
+    [isSelected]="rla2.isActive"></igx-tab-item>
+
+  <!-- <igx-tab-item label="Tab 3" icon="radio-button_checked" routerLink="view3" routerLinkActive #rla3="routerLinkActive"
+      [isSelected]="rla3.isActive"></igx-tab-item> -->
+</igx-tabs>
+<div>
+  <router-outlet></router-outlet>
+</div>

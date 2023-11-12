@@ -1,0 +1,43 @@
+<kendo-dialog *ngIf="active" [width]="500" [height]="550" (close)="closeForm()">
+  <kendo-dialog-titlebar>
+    {{ isNew ? 'Add new product' : 'Edit product' }}
+  </kendo-dialog-titlebar>
+
+  <form novalidate class="k-form" [formGroup]="editForm">
+    <kendo-formfield>
+      <kendo-label [for]="ProductName" text="Product name"></kendo-label>
+      <input formControlName="ProductName" kendoTextBox #ProductName required />
+
+      <kendo-formhint>Type product name</kendo-formhint>
+      <kendo-formerror>Error: Product name is required</kendo-formerror>
+    </kendo-formfield>
+
+    <!-- <kendo-formfield>
+      <kendo-label [for]="UnitPrice" text="Unit price"></kendo-label>
+      <kendo-numerictextbox formControlName="UnitPrice" #UnitPrice required [format]="n0"> </kendo-numerictextbox>
+
+      <kendo-formhint>Type unit price</kendo-formhint>
+      <kendo-formerror>Error: Unit price is required</kendo-formerror>
+    </kendo-formfield> -->
+
+    <kendo-formfield>
+      <kendo-label [for]="UnitsInStock" text="Units in stock"></kendo-label>
+      <kendo-numerictextbox formControlName="UnitsInStock" #UnitsInStock required [format]="n0"> </kendo-numerictextbox>
+
+      <kendo-formhint>Type units</kendo-formhint>
+      <kendo-formerror>Error: Units must be between 0 and 999</kendo-formerror>
+    </kendo-formfield>
+
+    <kendo-formfield>
+      <div class="k-inline-checkbox">
+        <input formControlName="Discontinued" kendoCheckBox #Discontinued type="checkbox" />
+        <kendo-label [for]="Discontinued" class="k-checkbox-label" text="Discontinued product"> </kendo-label>
+      </div>
+    </kendo-formfield>
+  </form>
+
+  <kendo-dialog-actions>
+    <button class="k-button" (click)="onCancel($event)">Cancel</button>
+    <button class="k-button k-primary" [disabled]="!editForm.valid" (click)="onSave($event)">Save</button>
+  </kendo-dialog-actions>
+</kendo-dialog>

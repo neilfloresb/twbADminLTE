@@ -1,0 +1,87 @@
+<!-- <kendo-dialog *ngIf="editActive" [width]="350" [height]="550" (close)="closeForm()">
+  <kendo-dialog-titlebar>
+    {{ isNew ? 'Add new product' : 'Edit DETAILS' }}
+  </kendo-dialog-titlebar>
+
+  <form novalidate class="k-form" [formGroup]="editForm">
+    <kendo-formfield>
+      <kendo-label [for]="drno" text="DR. No"></kendo-label>
+      <input formControlName="drno" kendoTextBox #drno readonly /> -->
+
+<!-- <kendo-formhint>Type product name</kendo-formhint>
+      <kendo-formerror>Error: Product name is required</kendo-formerror> -->
+<!-- </kendo-formfield>
+
+    <kendo-formfield>
+      <kendo-label [for]="itemdesc" text="Item Description"></kendo-label>
+      <input formControlName="itemdesc" kendoTextBox #itemdesc readonly /> -->
+
+<!-- <kendo-formhint>Type product name</kendo-formhint>
+      <kendo-formerror>Error: Product name is required</kendo-formerror> -->
+<!-- </kendo-formfield>
+    <kendo-formfield>
+      <kendo-label [for]="qty" text="Quantity"></kendo-label>
+      <kendo-numerictextbox formControlName="qty" #qty required [format]="n0"> </kendo-numerictextbox>
+
+      <kendo-formhint>Type Quantity</kendo-formhint>
+      <kendo-formerror>Error: Units must be between 0 and 999</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield>
+      <kendo-label [for]="unitprice" text="Unit Price"></kendo-label>
+      <kendo-numerictextbox formControlName="unitprice" #unitprice required [format]="n0"> </kendo-numerictextbox>
+
+      <kendo-formhint>Type Price</kendo-formhint>
+      <kendo-formerror>Error: Units must be between 0 and 999</kendo-formerror>
+    </kendo-formfield>
+  </form>
+
+  <kendo-dialog-actions>
+    <button class="k-button" (click)="onCancel($event)">Cancel</button>
+    <button class="k-button k-primary" [disabled]="!editForm.valid" (click)="onSave($event)">Save</button>
+  </kendo-dialog-actions>
+</kendo-dialog> -->
+
+
+<kendo-dialog *ngIf="active" [width]="400" [height]="650" (close)="closeForm()">
+  <kendo-dialog-titlebar>
+    {{ isNew ? 'Add new customer' : 'Edit customer' }}
+  </kendo-dialog-titlebar>
+
+  <form novalidate class="k-form" [formGroup]="editForm">
+
+    <!-- <kendo-formfield>
+      <kendo-label [for]="billno" text="Email Address"></kendo-label>
+      <input formControlName="billno" kendoTextBox #billno />
+    </kendo-formfield> -->
+
+    <kendo-formfield>
+      <kendo-label [for]="itemdesc" text="TIN No."></kendo-label>
+      <input formControlName="itemdesc" kendoTextBox #itemdesc required />
+
+      <kendo-formhint>Type Item Description.</kendo-formhint>
+      <kendo-formerror>Error: Item Description is required</kendo-formerror>
+    </kendo-formfield>
+
+    <kendo-formfield>
+      <kendo-label [for]="qty" text="Quantity"></kendo-label>
+      <kendo-numerictextbox formControlName="qty" #qty required [format]="n0"> </kendo-numerictextbox>
+
+      <kendo-formhint>Type Quantity</kendo-formhint>
+      <kendo-formerror>Error: Quantity is required</kendo-formerror>
+    </kendo-formfield>
+
+    <kendo-formfield>
+      <kendo-label [for]="unitprice" text="Unit Price"></kendo-label>
+      <kendo-numerictextbox formControlName="unitprice" #unitprice required [format]="n0"> </kendo-numerictextbox>
+
+      <kendo-formhint>Type Unit Price</kendo-formhint>
+      <kendo-formerror>Error: Unit Price is required</kendo-formerror>
+    </kendo-formfield>
+
+  </form>
+
+  <kendo-dialog-actions>
+    <button class="k-button" (click)="onCancel($event)">Cancel</button>
+    <button class="k-button k-primary" [disabled]="!editForm.valid" (click)="onSave($event)">Save</button>
+  </kendo-dialog-actions>
+</kendo-dialog>

@@ -1,0 +1,157 @@
+<h5 class="Twinbee-title titlealign"> <strong class="badge badge-primary">Quotation EDIT Entry</strong></h5>
+
+<div class="twinbee-displaycontent">
+  <div class="elevate16">
+    <form [formGroup]="quoteForm" (ngSubmit)="Save()">
+
+      <div igxLayout igxLayoutDir="row">
+
+        <div igxLayout igxLayoutDir="column" igxLayoutJustify="space-between">
+          <div class="layout-box__el">
+            <igx-input-group type="border" [displayDensity]="'compact'" width="'50px'">
+              <label igxLabel>Quotation No.:</label>
+              <input igxInput name="sqno" formControlName="sqno" readonly width="'50px'" />
+              <igx-prefix>
+                <igx-icon>tag</igx-icon>
+              </igx-prefix>
+            </igx-input-group>
+          </div>
+          <div class="layout-box__el_3" igxFlex igxFlexGrow="0">
+            <igx-combo class="combo" #combocust [itemsMaxHeight]="230" formControlName="custid"
+              placeholder="Select Customer" searchPlaceholder="Search..." type="box" [displayDensity]="'compact'"
+              [data]="_customerdata" [valueKey]="'custid'" [displayKey]="'custname'"
+              (onSelectionChange)="singleCustSelection($event)">
+              <label igxLabel>Customer Name:</label>
+              <igx-prefix>
+                <igx-icon>people</igx-icon>
+              </igx-prefix>
+            </igx-combo>
+          </div>
+          <div class="layout-box__el_3" igxFlex igxFlexGrow="0">
+            <igx-input-group type="border" [displayDensity]="'compact'">
+              <label igxLabel>Contact Name</label>
+              <input igxInput name="contactp" [igxTextSelection]="true" [igxFocus]="true" formControlName="contactp" />
+              <igx-prefix>
+                <igx-icon>support_agent</igx-icon>
+              </igx-prefix>
+            </igx-input-group>
+          </div>
+          <div class="layout-box__el_3">
+            <igx-combo class="combo" #comboart [itemsMaxHeight]="230" formControlName="artcode"
+              placeholder="Select Artist" searchPlaceholder="Search..." type="box" [displayDensity]="'compact'"
+              [data]="_artistdata" [valueKey]="'artcode'" [displayKey]="'artistname'"
+              (onSelectionChange)="singleArtSelection($event)">
+              <label igxLabel>Artist:</label>
+              <igx-prefix>
+                <igx-icon>face</igx-icon>
+              </igx-prefix>
+            </igx-combo>
+          </div>
+        </div>
+        <div style="width: 50px"></div>
+        <div igxLayout igxLayoutDir="column" igxLayoutJustify="space-between">
+          <div class="layout-box__el">
+            <igx-input-group type="border" [displayDensity]="'compact'">
+              <label igxLabel>Status</label>
+              <input igxInput name="status" formControlName="status" readonly />
+              <igx-prefix>
+                <igx-icon>upcoming</igx-icon>
+              </igx-prefix>
+            </igx-input-group>
+          </div>
+          <div class="layout-box__el">
+
+              <div>
+                <kendo-label text="Discount"></kendo-label>
+              </div>
+              <kendo-numerictextbox format="p" [step]="0.0" [min]="0" formControlName="discnt"></kendo-numerictextbox>
+
+
+            <!-- <igx-input-group> -->
+            <!-- <label igxLabel for="email">Discount</label>
+              <igx-hint position="start">model value: {{value}}</igx-hint> -->
+            <!--//// //    <input igxInput name="discnt" type="text" formControlName="discnt"/> -->
+            <!-- <input igxInput name="discnt" type="text" formControlName="discnt" [igxTextSelection]="true" [igxFocus]="true" [igxMask]="00.00"
+                [placeholder]="placeholder" [focusedValuePipe]="inputFormat" [displayValuePipe]="displayFormat" />
+              <igx-prefix>
+                <igx-icon><span class="material-icons">
+                    remove_circle
+                  </span></igx-icon>
+              </igx-prefix>
+
+            </igx-input-group> -->
+
+          </div>
+          <div style="height: 30px"></div>
+
+          <div class=" layout-box__el_2" igxFlex igxFlexGrow="1">
+            <igx-input-group type="border" [displayDensity]="'compact'">
+              <label igxLabel>Remarks</label>
+              <textarea igxInput name="remarks" formControlName="remarks"></textarea>
+              <igx-prefix>
+                <igx-icon>sticky_note_2</igx-icon>
+              </igx-prefix>
+            </igx-input-group>
+          </div>
+        </div>
+
+        <div style="width: 50px"></div>
+
+        <div igxLayout igxLayoutDir="column" igxLayoutJustify="space-between">
+          <div class="layout-box__date">
+            <igx-date-picker #trandate name="trndate" format="MM/dd/yyyy" [mode]="'dropdown'" formControlName="sqdate"
+              width="200px" height="10px" cancelButtonLabel="close" todayButtonLabel="today" label="Transaction Date:"
+              displayDensity="compact" (onSelection)="onSdateSelection($event)">
+            </igx-date-picker>
+          </div>
+          <div class=" layout-box__el_2">
+            <igx-select formControlName="vat_type" #selectvat [placeholder]="'Select Vat'" [type]="'border'"
+              (onSelection)="SelectVAT($event)" [displayDensity]="'compact'" [(ngModel)]="curSelectedVAT">
+              <label igxLabel>Vat Type</label>
+              <igx-prefix igxPrefix>
+                <igx-icon fontSet="material">euro</igx-icon>
+              </igx-prefix>
+              <igx-select-item *ngFor="let vat of _vattype" [value]="vat">
+                {{ vat }}
+              </igx-select-item>
+            </igx-select>
+          </div>
+          <div class="layout-box__el_2">
+            <igx-combo class="combo" #comboterms [itemsMaxHeight]="230" formControlName="termid"
+              placeholder="Select Terms" searchPlaceholder="Search..." type="box" [displayDensity]="'compact'"
+              [data]="_termdata" [valueKey]="'termid'" [displayKey]="'termname'"
+              (onSelectionChange)="singleTermSelection($event)">
+              <label igxLabel>Terms:</label>
+              <igx-prefix>
+                <igx-icon><span class="material-icons">
+                    perm_contact_calendar
+                  </span></igx-icon>
+              </igx-prefix>
+            </igx-combo>
+          </div>
+          <div class="layout-box__el_2">
+            <igx-select formControlName="delivery" #seldelivery [placeholder]="'Select Delivery'" width="250px"
+              [type]="'border'" [displayDensity]="'compact'" (onSelection)="SelectDelivery($event)"
+              [(ngModel)]="curSelectedDel">
+              <label igxLabel>Delivery</label>
+              <igx-prefix igxPrefix>
+                <igx-icon fontSet="material">shopping_cart</igx-icon>
+              </igx-prefix>
+              <igx-select-item *ngFor="let deli of _delivery" [value]="deli">
+                {{ deli }}
+              </igx-select-item>
+            </igx-select>
+          </div>
+        </div>
+      </div>
+      <!-- <button class="btngap" igxButton="raised" igxRipple type="submit">Next</button> -->
+    </form>
+  </div>
+
+  <div class="topgap">
+    <app-quotation-detail [hasConfirmed]="hasConfirmed" [hasDisable]="hasDisable" [tmpDetailsqno]="current_sqno"
+      [tmpVattype]="curSelectedVAT" [_quotationDetail_data]="_quotationDetail_data" (SaveHdrEmit)="Save()">
+    </app-quotation-detail>
+  </div>
+
+</div>

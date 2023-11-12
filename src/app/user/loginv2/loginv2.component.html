@@ -1,0 +1,33 @@
+<!-- <p>loginv2 works!</p> -->
+<div class="full-screen-container">
+  <div class="login-container">
+    <img src="/assets/img/single_user.png" class="mx-auto d-block">
+    <h1 class="login-title">WELCOME</h1>
+    <form [formGroup]="form" class="form" (ngSubmit)="onSubmit()">
+      <div class="input-group success">
+      <!-- <div class="form-group"> -->
+        <label for="username">Username</label>
+        <input type="text" formControlName="username"     [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+        <span class="msg"> Valid username</span>
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="input-group error">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" formControlName="password">
+        <span class="msg"> Incorrect password</span>
+      </div>
+
+      <button type="submit" class="login-button">LoginMe</button>
+    </form>
+  </div>
+</div>
+
+<!-- <div id="boxes" class="grandparent" style="display:flex; justify-content: center; align-items: center;"
+    (click)="myeventlistener($event)">
+    <div class="parent" style="display:flex; justify-content: center; align-items: center;">
+      <div class="child" style="display:flex; justify-content: center; align-items: center;"></div>
+    </div>
+  </div> -->

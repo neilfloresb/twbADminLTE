@@ -1,0 +1,125 @@
+<!-- <p>gljv-detials works!</p> -->
+<app-grid-batch-editing-with-transactions>
+  <button igxButton="raised" (click)="dialogAdd.open()" class="addProdBtn">Add New Transaction</button>
+  <igx-grid #grdglDetails igxPreventDocumentScroll [data]="_jvDetailsData" [primaryKey]="'line_ctrl_no'" width="1200px"
+    height="350px" (onRowEdit)="editDone($event)" (onSelection)="handleRowSelection($event)" [rowEditable]="true">
+    <igx-column width="0px" field="line_ctrl_no" [dataType]="'number'" [hidden]="true"></igx-column>
+    <igx-column width="0px" field="ref_no" [dataType]="'string'" [hidden]="true"></igx-column>
+    <igx-column width="100px" field="acct_code" header="Account" [dataType]="'string'" [editable]="true">
+      <ng-template igxCellEditor let-cell="cell" let-value>
+        <igx-combo #cAcctCombo type="line" valueKey="acct_code" displayKey="acct_desc" [data]="_gl_acct_title_data"
+          width="220px" (onSelectionChange)="singleSelection($event,cell)">
+        </igx-combo>
+      </ng-template>
+    </igx-column>
+    <igx-column width="220px" field="acct_desc" header="Description" [dataType]="'string'" [editable]="true">
+    </igx-column>
+    <igx-column width="100px" field="sl_type" header="S/L Type" [dataType]="'string'"></igx-column>
+    <igx-column width="100px" field="ssl_code" header="S/L Code" [dataType]="'string'"></igx-column>
+    <igx-column width="120px" field="dr_amt" header="Debit" [dataType]="'string'" [editable]="true">
+      <ng-template igxCell let-cell="cell" let-val>
+        <span class="cellAlignSyle">{{val | number: '1.2-4' }}</span>
+      </ng-template>
+    </igx-column>
+    <igx-column width="120px" field="cr_amt" header="Credit" [dataType]="'string'" [editable]="true">
+      <ng-template igxCell let-cell="cell" let-val>
+        <span class="cellAlignSyle">{{val | number: '1.2-4' }}</span>
+      </ng-template>
+    </igx-column>
+    <igx-column width="190px" field="remarks" header="Remarks" [dataType]="'string'" [editable]="true">
+      <ng-template igxCellEditor let-cell="cell">
+        <textarea [(ngModel)]="cell.editValue" (keydown)="$event.stopPropagation()" width="100px"></textarea>
+      </ng-template>
+    </igx-column>
+    <igx-column width="120px" field="cs_type" header="Debt/Cred" [dataType]="'string'">
+
+      <ng-template igxCellEditor let-cell="cell" let-value>
+        <igx-input-group #inputGroup (keydown.ArrowDown)="openDropDown()" [igxToggleAction]="dropDown_cstype">
+          <input igxInput [igxDropDownItemNavigation]="dropDown_cstype" name="drop-down-target" type="text"
+            [igxFocus]="true" [(ngModel)]="cell.value" />
+          <igx-suffix igxButton="icon" class="dropdownToggleButton" igxRipple>
+            <igx-icon>arrow_drop{{ dropDown_cstype.collapsed ? '_down' : '_up' }}</igx-icon>
+          </igx-suffix>
+        </igx-input-group>
+        <igx-drop-down #dropDown_cstype (onSelection)="selectcstype($event, cell)">
+          <igx-drop-down-item *ngFor="let item of cs_type">{{item._type}}</igx-drop-down-item>
+        </igx-drop-down>
+      </ng-template>
+
+    </igx-column>
+    <igx-column width="120px" field="cs_code" header="Code" [dataType]="'string'"></igx-column>
+    <igx-column width="135px" [filterable]="false" editable="true">
+      <ng-template igxCell let-cell="cell" let-val>
+        <button igxButton (click)="deleteRow($event, cell.cellID.rowID)">
+          <igx-icon>delete</igx-icon>
+        </button>
+      </ng-template>
+    </igx-column>
+  </igx-grid>
+</app-grid-batch-editing-with-transactions>
+
+<!-- ADD DIALOG code -->
+<igx-dialog #dialogAdd title="New Transaction" [rightButtonLabel]="'Add'" [leftButtonLabel]="'Cancel'"
+  (onLeftButtonSelect)="cancel()" (onRightButtonSelect)="addRow()">
+  <div class="dialogNewRecord boxshade">
+    <!-- <igx-input-group type="border">
+      <label igxLabel>Ref.NO.</label>
+      <input igxInput id="ref_no" type="text" [(ngModel)]="_jv_gl_crud_details.ref_no"/>
+    </igx-input-group> -->
+    <igx-combo #acct_code [valueKey]="'acct_code'" [placeholder]="'Account Code'" [data]="_gl_acct_title_data"
+      [itemsMaxHeight]="200" displayKey="acct_desc" (onSelectionChange)="AddSelection($event)">
+    </igx-combo>
+    <!-- <igx-input-group>
+      <label igxLabel for="acct_code">Account Code</label>
+      <input igxInput id="acct_code" type="text" [(ngModel)]="_jv_gl_crud_details.acct_code" />
+    </igx-input-group>
+    <igx-input-group>
+      <label igxLabel for="acct_desc">Account Description</label>
+      <input igxInput id="acct_desc" type="text" [(ngModel)]="_jv_gl_crud_details.acct_desc" />
+    </igx-input-group> -->
+    <igx-input-group>
+      <label igxLabel for="sl_type">S / L Type</label>
+      <input igxInput id="sl_type" type="text" [(ngModel)]="_jv_gl_crud_details.sl_type" />
+    </igx-input-group>
+    <igx-input-group>
+      <label igxLabel for="sl_code">S/L Code</label>
+      <input igxInput id="sl_code" type="text" [(ngModel)]="_jv_gl_crud_details.sl_code" />
+    </igx-input-group>
+    <igx-input-group>
+      <label igxLabel for="dr_amt">DEBIT</label>
+      <input igxInput id="dr_amt" type="number" [(ngModel)]="_jv_gl_crud_details.dr_amt" />
+    </igx-input-group>
+    <igx-input-group>
+      <label igxLabel for="cr_amt">CREDIT</label>
+      <input igxInput id="cr_amt" type="number" [(ngModel)]="_jv_gl_crud_details.cr_amt" />
+    </igx-input-group>
+    <igx-input-group>
+      <label igxLabel for="">Remarks</label>
+      <textarea igxInput id="remarks" [(ngModel)]="_jv_gl_crud_details.remarks"></textarea>
+    </igx-input-group>
+    <section class="sample-content">
+      <igx-input-group class="input-group">
+        <label igxLabel for="cs_type">Debt/Cred</label>
+        <input type="text" [igxToggleAction]="dropdown_cstype" [igxDropDownItemNavigation]="dropdown_cstype" igxInput
+          readonly="true" [value]="dropdown_cstype.selectedItem?.value._type"
+          [(ngModel)]="_jv_gl_crud_details.cs_type" />
+      </igx-input-group>
+      <igx-drop-down #dropdown_cstype height='400px'>
+        <igx-drop-down-item *ngFor="let item of cs_type" [value]="item">
+          <div class="igx-drop-down__item-template">
+            {{ item._type }}
+          </div>
+        </igx-drop-down-item>
+      </igx-drop-down>
+    </section>
+    <igx-input-group>
+      <label igxLabel for="cs_code">Code</label>
+      <input igxInput id="cs_code" type="text" [(ngModel)]="_jv_gl_crud_details.cs_code" />
+    </igx-input-group>
+  </div>
+</igx-dialog>
+<div class="buttons-wrapper">
+  <button igxButton [disabled]="!hasTransactions" (click)="saveCRUDgrid()">Commit</button>
+  <button (click)="TestSave()">Add Row</button>
+</div>
+<!-- <button (click)="Updatecell()">Add Row</button> -->

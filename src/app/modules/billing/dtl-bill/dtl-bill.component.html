@@ -1,0 +1,87 @@
+<!-- <kendo-grid [data]="BillDtlview | async" [height]="333" [skip]="gridState.skip" [sortable]="true"
+  (add)="addHandler($event)" (edit)="editHandler($event)" (dataStateChange)="onStateChange($event)"> -->
+<!-- <kendo-grid [data]="BillDtlview | async" [height]="333"  (add)="addHandler($event)" (edit)="editHandler($event)" (dataStateChange)="onStateChange($event)">
+  <ng-template kendoGridToolbarTemplate>
+    <button kendoGridAddCommand>Add new</button>
+  </ng-template>
+  <kendo-grid-column field="billineno" width="0"></kendo-grid-column>
+  <kendo-grid-column field="billno" width="0"></kendo-grid-column>
+  <kendo-grid-column field="vat_type" width="0"></kendo-grid-column>
+  <kendo-grid-column field="sono" width="0"></kendo-grid-column>
+  <kendo-grid-column field="drno" title="DR No." width="120"></kendo-grid-column>
+  <kendo-grid-column field="itemdesc" title="Description" width="350"></kendo-grid-column>
+  <kendo-grid-column field="qty" title="Qty" width="110"></kendo-grid-column>
+  <kendo-grid-column field="unitprice" title="Unit Price" width="110" format="{0:n2}"></kendo-grid-column>
+  <kendo-grid-column field="subamt" title="Amount" width="150" format="{0:n2}"></kendo-grid-column>
+  <kendo-grid-command-column title="command" width="220">
+    <ng-template kendoGridCellTemplate>
+      <button kendoGridEditCommand [primary]="true">Edit</button>
+      <button kendoGridRemoveCommand>Delete</button>
+    </ng-template>
+  </kendo-grid-command-column>
+</kendo-grid> -->
+
+<kendo-grid [data]="billDtlView | async" [height]="400" [skip]="gridState.skip" [sort]="gridState.sort"
+  (dataStateChange)="onStateChange($event)" (add)="addHandler($event)" (edit)="editHandler($event)" (remove)="removeHandler($event)" filterable="menu"
+  [selectable]="true" kendoGridSelectBy="billineno"
+      [(selectedKeys)]="mySelection">
+  <ng-template kendoGridToolbarTemplate>
+    <button kendoGridAddCommand>Add new</button>
+  </ng-template>
+  <!-- <kendo-grid-column field="custid" title="Customer ID"></kendo-grid-column> -->
+  <kendo-grid-column field="billineno" width="30" title="Bill No." [hidden]="true"></kendo-grid-column>
+  <kendo-grid-column field="billno" title="Bill No" width="100" [hidden]="true" [filterable]="false"></kendo-grid-column>
+  <kendo-grid-column field="itemdesc" title="Item Description" width="180" [filterable]="false"></kendo-grid-column>
+  <kendo-grid-column field="qty" title="Quantity" width="90" format="{0:n}" [filterable]="false"></kendo-grid-column>
+  <kendo-grid-column field="unitprice" title="Unit Price" format="{0:n2}" width="90" [filterable]="false"></kendo-grid-column>
+  <kendo-grid-column field="ucost" title="Cost(w/VAT/discount)" format="{0:n2}" width="90" [filterable]="false"></kendo-grid-column>
+  <kendo-grid-column field="subamt" title="Amount" width="90" format="{0:n2}" [filterable]="false"></kendo-grid-column>
+
+  <!-- <kendo-grid-column field="drno" title="drno" width="180" [filterable]="false"></kendo-grid-column>
+          <kendo-grid-column field="sono" title="sono" width="180" [filterable]="false"></kendo-grid-column> -->
+  <kendo-grid-command-column title="command" width="190">
+    <ng-template kendoGridCellTemplate>
+      <button kendoGridEditCommand [primary]="true">Edit</button>
+      <button kendoGridRemoveCommand>Delete</button>
+    </ng-template>
+  </kendo-grid-command-column>
+  <!-- <kendo-grid-column field="cperson2" title="Contact Person 2" width="0" [filterable]="false"></kendo-grid-column>
+  <kendo-grid-column field="ccontact2" title="Contact No. 2" width="0" [filterable]="false"></kendo-grid-column> -->
+</kendo-grid>
+
+<app-dtleditform [model]="billDtlDataItem" [isNew]="isNew" (save)="saveHandler($event)"></app-dtleditform>
+
+
+
+<kendo-dialog *ngIf="AddNew" [width]="800" [height]="450" (close)="closeForm()">
+  <kendo-dialog-titlebar>
+    <!-- //    {{ isNew ? 'Add new product' : 'Edit product' }} -->
+    Add New Billing Details
+  </kendo-dialog-titlebar>
+  <div class="container" *ngIf="viewforDrdbilling$ | async as vm">
+
+    <igx-grid #grid1 igxPreventDocumentScroll [data]="vm" [filterMode]="'quickFilter'" [allowFiltering]="true"
+      [primaryKey]="'drlineno'" width="680px" height="450px" [displayDensity]="'compact'"
+      (onSelection)="handleSelection($event)">
+      <igx-column width="135px" field="drlineno" header="Code" [filterable]="true" editable="false" [hidden]="true">
+      </igx-column>
+      <igx-column width="135px" field="drno" header="DRd No." [filterable]="true" editable="false" [hidden]="false">
+      </igx-column>
+      <igx-column width="115px" field="sono" header="sono" [filterable]="true" editable="false" [hidden]="false">
+      </igx-column>
+      <igx-column width="250px" field="item_desc" header="Item Desc" [dataType]="'string'" [filterable]="false">
+      </igx-column>
+      <igx-column width="250px" field="qty_dr" header="Quantity" [dataType]="'number'" [filterable]="false">
+      </igx-column>
+    </igx-grid>
+
+  </div>
+
+  <kendo-dialog-actions>
+    <button class="k-button" (click)="onCancelAdd($event)">Cancel</button>
+    <button class="k-button k-primary" (click)="onSaveAdd($event)">Save</button>
+
+    <!-- <button class="k-button k-primary" [disabled]="!editForm.valid" (click)="onSaveAdd($event)">Save</button> -->
+  </kendo-dialog-actions>
+</kendo-dialog>
+

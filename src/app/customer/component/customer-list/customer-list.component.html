@@ -1,0 +1,146 @@
+<h5 class="Twinbee-title titlealign"> <strong class="badge badge-primary">CUSTOMER LISTING</strong></h5>
+<div class="twinbee-displaycontent">
+  <div class="elevate16">
+    <app-grid-batch-editing-with-transactions>
+      <igx-grid #grid1 igxPreventDocumentScroll [data]="customerdata$ | async" [filterMode]="'quickFilter'"
+        [allowFiltering]="true" [primaryKey]="'custid'" width="1280px" height="450px" [rowEditable]="true"
+        (onSelection)="handleSelection($event)" [displayDensity]="'compact'">
+
+        <igx-column width="80px" field="custid" header="Code" [filterable]="true" editable="false" [hidden]="false">
+        </igx-column>
+        <igx-column width="265px" field="custmain" header="MotherCustomer Name" [dataType]="'string'" editable="true"
+          sortable="true">
+        </igx-column>
+        <igx-column width="265px" field="custname" header="CUSTOMER NAME" [dataType]="'string'" editable="true"
+          sortable="true">
+        </igx-column>
+        <igx-column width="130px" field="cperson" header="Contact Name" [dataType]="'string'" editable="true"
+          [filterable]="false">
+        </igx-column>
+        <igx-column width="120px" field="ccontact" header="Contact" [dataType]="'string'" editable="true"
+          [filterable]="false">
+          <ng-template igxCellEditor let-cell="cell">
+            <textarea [(ngModel)]="cell.editValue" (keydown)="$event.stopPropagation()" width="100%"></textarea>
+          </ng-template>
+        </igx-column>
+        <igx-column width="122px" field="tin" header="TIN No." [dataType]="'string'" editable="true"
+          [filterable]="false"></igx-column>
+        <igx-column width="130px" field="cposition" header="Position" [dataType]="'string'" [filterable]="false"
+          editable="true">
+
+        </igx-column>
+        <igx-column width="100px" field="emailadd" header="Email" [dataType]="'string'" editable="true"
+          [filterable]="false"></igx-column>
+        <igx-column width="190px" field="cperson2" header="Address" [dataType]="'string'" editable="true"
+          [filterable]="false">
+          <ng-template igxCellEditor let-cell="cell">
+            <textarea [(ngModel)]="cell.editValue" (keydown)="$event.stopPropagation()" width="100%"></textarea>
+          </ng-template>
+        </igx-column>
+        <igx-column width="120px" field="active_flag" header="STATUS" [dataType]="'boolean'">
+          <ng-template igxCell let-cell="cell" let-val>
+            <div style="margin-left: auto; margin-right: auto;">
+              <igx-radio *ngFor="let radioValue of radioValues" [ngModel]="cell.value"
+                (ngModelChange)="handleRadioSelection($event, cell)" [igxFocus]="true" [value]="radioValue"
+                labelPosition="after" style="margin: 0 5px;">{{radioValue ? radioValue : 'null'}}</igx-radio>
+            </div>
+          </ng-template>
+        </igx-column>
+        <igx-column width="100px" field="ccontact2" header="Contact II" [dataType]="'string'" [filterable]="false">
+        </igx-column>
+        <igx-column width="190px" field="entity" header="Contact II Name" [hidden]="true" [dataType]="'string'"
+          [filterable]="false">
+        </igx-column>
+        <!-- <igx-column width="135px" [filterable]="false" editable="true">
+         <ng-template igxCell let-cell="cell" let-val>
+        <button igxButton (click)="deleteRow($event, cell.cellID.rowID)">
+          <igx-icon>delete</igx-icon>
+        </button>
+      </ng-template>
+        </igx-column>-->
+        <!-- <igx-column width="100px" [filterable]="false">
+          <ng-template igxCell let-cell="cell" let-val>
+            <button igxButton="raised" displayDensity="cosy" igxRipple (click)="View($event, cell.cellID.rowID)">
+              <igx-icon fontSet="material" color="#FFFF00">edit</igx-icon>
+              <span>Edit</span>
+            </button>
+          </ng-template>
+        </igx-column> -->
+      </igx-grid>
+    </app-grid-batch-editing-with-transactions>
+    <div>
+      <div class="buttons-wrapper topgap" igxLayout igxLayoutJustify="space-around">
+        <button igxButton="raised" (click)="dialogAdd.open()" igxRipple [displayDensity]="'compact'">
+          <span>
+            <igx-icon fontSet="material" color="#0026ca">add</igx-icon>
+            Add New Customer
+          </span>
+        </button>
+        <!-- <button igxButton="raised" [disabled]="!hasTransactions" (click)="saveDetail()" igxRipple [displayDensity]="'cosy'"> -->
+        <button igxButton="raised" [disabled]="!hasTransactions" (click)="Savecustomer()" igxRipple
+          [displayDensity]="'cosy'">
+          <span>
+            <igx-icon fontSet="material" color="#0026ca">save</igx-icon>
+            Save / Update
+          </span>
+        </button>
+      </div>
+
+      <!-- add new transaction dialog box -->
+      <igx-dialog #dialogAdd title="Add New Customer" [rightButtonLabel]="'Add'" [leftButtonLabel]="'Cancel'"
+        (onLeftButtonSelect)="closeadd()" (onRightButtonSelect)="addRow()" width="300px">
+        <div class="dialogNewRecord topgap">
+          <igx-input-group>
+            <label igxLabel for="custmain">MotherCustomer Name</label>
+            <input igxInput id="custmain" type="text" [(ngModel)]="_customerdata_.custmain" />
+          </igx-input-group>
+          <igx-input-group>
+            <label igxLabel for="custname">Sub Customer Name</label>
+            <input igxInput id="custname" type="text" [(ngModel)]="_customerdata_.custname" />
+          </igx-input-group>
+          <igx-input-group>
+            <label igxLabel for="cperson">Contact Name</label>
+            <input igxInput id="cperson" type="text" [(ngModel)]="_customerdata_.cperson" />
+          </igx-input-group>
+          <igx-input-group>
+            <label igxLabel for="cposition">Position</label>
+            <input igxInput id="cposition" type="text" [(ngModel)]="_customerdata_.cposition" />
+          </igx-input-group>
+          <igx-input-group>
+            <label igxLabel for="ccontact">Contact #:</label>
+            <input igxInput id="ccontact" type="text" [(ngModel)]="_customerdata_.ccontact" />
+          </igx-input-group>
+          <igx-input-group>
+            <label igxLabel for="cperson2">Address:</label>
+            <input igxInput id="cperson2" type="text" [(ngModel)]="_customerdata_.cperson2" />
+          </igx-input-group>
+          <igx-input-group>
+            <label igxLabel for="emailadd">Email Add:</label>
+            <input igxInput id="emailadd" type="email" [(ngModel)]="_customerdata_.emailadd" />
+          </igx-input-group>
+          <igx-input-group>
+            <label igxLabel for="tin">TIN No.:#</label>
+            <input igxInput id="tin" type="text" [(ngModel)]="_customerdata_.tin" />
+          </igx-input-group>
+        </div>
+      </igx-dialog>
+
+    </div>
+  </div>
+  <!-- <div>
+    <h6>Decimal</h6>
+    <kendo-numerictextbox format="n2" [value]="value"></kendo-numerictextbox>
+
+    <h6>Percentage</h6>
+    <kendo-numerictextbox format="p" [step]="0.1" [min]="0" [max]="1" [value]="percentage"></kendo-numerictextbox>
+
+    <h6>Currency</h6>
+    <kendo-numerictextbox format="c0" [min]="0" [value]="value"></kendo-numerictextbox>
+
+    <h6>Currency</h6>
+    <kendo-numerictextbox format="n0" [min]="0" [value]="value"></kendo-numerictextbox>
+
+    <h6>Currency with format options</h6>
+    <kendo-numerictextbox [format]="formatOptions" [value]="value" [min]="0"></kendo-numerictextbox>
+  </div> -->
+</div>

@@ -1,0 +1,102 @@
+.input-group-form {
+  //padding: 28px, 5px, 28px,5px;
+  padding-bottom: 28px;
+  // margin-bottom: 10px;
+  border: 1px solid rgb(234, 247, 234);
+  // box-shadow: 00 8px 10px -5px palette(rgb(58, 3, 3), 400),
+  //   0 16px 24px 2px palette(rgb(66, 4, 4), 300),
+  //   0 6px 30px 5px palette(rgb(211, 10, 10), 200);
+  background-color: aliceblue;
+}
+
+.elevate16 {
+  box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.26),
+    0 16px 24px 2px rgba(0, 0, 0, 0.12), 0 6px 30px 5px rgba(0, 0, 0, 0.08);
+
+  background-color: white;
+  color: blue;
+
+  div {
+    color: blue;
+  }
+}
+
+.layout-box__el {
+  height: 48px;
+  padding: 8px;
+  margin: 2px;
+  width: 200px;
+  //   background: #e41c77;
+  color: rgb(82, 25, 25);
+}
+
+.layout-box__el_2 {
+  height: 48px;
+  padding: 8px;
+  margin: 2px;
+  width: 300px;
+  //   background: #e41c77;
+  color: rgb(82, 25, 25);
+}
+
+.layout-box__el_3 {
+  height: 48px;
+  padding: 8px;
+  margin: 2px;
+  width: 400px;
+  //   background: #e41c77;
+  color: rgb(82, 25, 25);
+}
+
+.titlealign {
+  text-align: center;
+  margin-top: 5px;
+}
+.btngap {
+  margin: 10px;
+}
+
+.wrap-row {
+  width: calc(50% - 16px);
+}
+
+.topgap {
+  margin-top: 10px;
+}
+
+:host {
+  ::ng-deep {
+    // .myBackground {
+    //   background-color: lightblue;
+    // }
+    // .igx-grid__th {
+    //   text-align: center;
+    //   color: green;
+    //   font-weight: bold;
+    // }
+    .igx-input-group {
+      color: rgb(247, 129, 62);
+      // font-weight: bold;
+    }
+    .igx-input-group--cosy .igx-input-group__input {
+      //height: 1.6842105263rem;
+      color: blue;
+    }
+
+    // .igx-typography .igx-input-group__input,
+    // .igx-typography .igx-input-group__textarea {
+    //   // font-weight: 400;
+    //   // font-size: 1rem;
+    //   // letter-spacing: 0.009375rem;
+    //   // text-transform: none;
+    //   // line-height: 1.5rem;
+    //   // margin: 0;
+    //   color: blue;
+    // }
+
+    .igx-input-group__input,
+    .igx-input-group__textarea {
+      color: blue;
+    }
+  }
+}

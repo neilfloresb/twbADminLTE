@@ -1,0 +1,17 @@
+<div class="login-form">
+  <div class="dialogConfirm">
+    <form [formGroup]="confirmationForm">
+        <igx-date-picker #conDate [mode]="'dropdown'" formControlName="confirm_date" >
+      </igx-date-picker>
+      <igx-input-group>
+        <igx-prefix>
+          <igx-icon>support_agent</igx-icon>
+        </igx-prefix>
+        <label igxLabel>Confirm By:</label>
+        <input type="text" #confirm_ref formControlName="confirm_ref" igxInput />
+      </igx-input-group>
+      <igx-date-picker #delDate [mode]="'dropdown'" formControlName="confirm_date">
+      </igx-date-picker>
+    </form>
+  </div>
+</div>

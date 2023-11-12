@@ -1,0 +1,17 @@
+
+  <igx-tabs >
+    <igx-tab-item label="Create Quotation" routerLink="create" routerLinkActive #rla1="routerLinkActive"
+      [isSelected]="rla1.isActive"></igx-tab-item>
+
+    <igx-tab-item  label="Quotation List" routerLink="list" routerLinkActive
+      #rla2="routerLinkActive" [isSelected]="rla2.isActive"></igx-tab-item>
+
+    <!-- <igx-tab-item label="Tab 3" icon="radio-button_checked" routerLink="view3" routerLinkActive #rla3="routerLinkActive"
+      [isSelected]="rla3.isActive"></igx-tab-item> -->
+  </igx-tabs>
+  <!-- <igx-tabs>
+    <igx-tabs-group label="Home">Home content.</igx-tabs-group>
+    <igx-tabs-group label="Recent">Recent contacts list.</igx-tabs-group>
+    <igx-tabs-group label="More">More detailed contact information.</igx-tabs-group>
+  </igx-tabs> -->
+  <router-outlet></router-outlet>

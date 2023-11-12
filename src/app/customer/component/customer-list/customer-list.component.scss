@@ -1,0 +1,69 @@
+// @include igx-core();
+// @include igx-theme($app-palette);
+@import "~igniteui-angular/lib/core/styles/themes/index";
+
+:host {
+  ::ng-deep {
+    .igx-grid__td {
+      color: #b22222;
+      font-weight: bold;
+    }
+    textarea {
+      width: 400px;
+    }
+    .igx-button--flat {
+      justify-content: left;
+    }
+
+    $new-grid-theme: igx-grid-theme(
+      $row-odd-background: rgba(179, 229, 252, 1),
+      $row-even-background: rgba(255, 249, 196, 1),
+      $row-odd-text-color: rgba(50, 0, 100, 0.74),
+      $row-even-text-color: rgba(128, 33, 77, 0.74),
+    );
+
+    @include igx-grid($new-grid-theme);
+    .igx-grid__th {
+      text-align: center;
+      color: blue;
+      font-weight: bolder;
+      font-size: 10pt;
+    }
+    .igx-grid__td {
+      //color: #b22222;
+      color: #000000;
+      font-weight: bold;
+      font-size: 10pt;
+    }
+  }
+}
+.titlealign {
+  text-align: center;
+  margin-top: 5px;
+}
+.elevate16 {
+  box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.26),
+    0 16px 24px 2px rgba(0, 0, 0, 0.12), 0 6px 30px 5px rgba(0, 0, 0, 0.08);
+
+  background-color: white;
+  color: blue;
+
+  div {
+    color: blue;
+  }
+}
+
+.topgap {
+  margin: 10px;
+  // padding: 5px;
+}
+.dialogNewRecord {
+  margin: 10px;
+  width: 300px;
+  padding: 10px;
+  box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.26),
+    0 16px 24px 2px rgba(0, 0, 0, 0.12), 0 6px 30px 5px rgba(0, 0, 0, 0.08);
+}
+
+// $primary: #731963 !default;
+// $secondary: #ce5712 !default;

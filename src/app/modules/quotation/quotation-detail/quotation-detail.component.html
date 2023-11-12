@@ -1,0 +1,232 @@
+<app-grid-batch-editing-with-transactions>
+  <!-- <button igxButton="raised" (click)="dialogAdd.open()" igxRipple [displayDensity]="'compact'">
+    <span>
+      <igx-icon fontSet="material" color="#0026ca">add</igx-icon>
+      Add New Item
+    </span>
+  </button> -->
+  <igx-grid igxPreventDocumentScroll #quotegridDetails [data]="_quotationDetail_data" [primaryKey]="'seqlineno'"
+    width="1200px" height="270px" [rowEditable]="true" (onSelection)="handleSelection($event)" displayDensity="compact">
+    <igx-column width="53px" [filterable]="false" editable="false">
+      <ng-template igxCell let-cell="cell" let-val>
+        <button igxButton (click)="deleteRow($event, cell.cellID.rowID)">
+          <igx-icon class="cursorHover" fontSet="material" color="#696969">delete_forever
+          </igx-icon>
+        </button>
+      </ng-template>
+    </igx-column>
+    <igx-column width="90px" field="seqlineno" [hidden]="true" editable="false"></igx-column>
+    <igx-column width="90px" field="sqno" [hidden]="true"></igx-column>
+    <igx-column width="250px" field="desc" [resizable]="true" header="Project Name" [dataType]="'string'"
+      editable="true"></igx-column>
+    <igx-column width="140px" field="size" header="SIZE" [dataType]="'string'" editable="true" [resizable]="true">
+    </igx-column>
+    <igx-column width="95px" field="qty_order" header="QTY" [dataType]="'number'" editable="true">
+      <ng-template igxCellEditor let-cell="cell">
+        <igx-input-group>
+          <input igxInput [igxFocus]="true" [(ngModel)]="cell.editValue" style="color: red" type="number" />
+        </igx-input-group>
+      </ng-template>
+    </igx-column>
+    <igx-column width="70px" field="um" header="U/M" [dataType]="'string'" editable="true">
+
+      <ng-template igxCellEditor let-cell="cell" let-value>
+        <igx-input-group #inputUM (keydown.ArrowDown)="openDropDown()" [igxToggleAction]="dropDown_cstype">
+          <input igxInput [igxDropDownItemNavigation]="dropDown_cstype" name="drop-down-target" type="text"
+            [igxFocus]="true" [(ngModel)]="cell.value" />
+          <igx-suffix igxButton="icon" class="dropdownToggleButton" igxRipple>
+            <igx-icon>arrow_drop{{ dropDown_cstype.collapsed ? '_down' : '_up' }}</igx-icon>
+          </igx-suffix>
+        </igx-input-group>
+        <igx-drop-down #dropDown_cstype (onSelection)="selectUNITmeasure($event, cell)" displayDensity="compact"
+          height="150px">
+          <igx-drop-down-item *ngFor="let item of umeasuresListed">{{item.um}}</igx-drop-down-item>
+        </igx-drop-down>
+      </ng-template>
+
+    </igx-column>
+    <igx-column width="105px" field="unitcost" header="UnitPrice" [dataType]="'number'" editable="true">
+      <ng-template igxCell let-cell="cell" let-val>
+        <span class="cellAlignSyle">{{val | currency:'P ':'symbol': '1.2-4' }}</span>
+      </ng-template>
+    </igx-column>
+    <igx-column width="110px" field="subtotal" header="SubTotal" [dataType]="'number'" [editable]="false"
+      [summaries]="SubtotalSummary" [hasSummary]='true'>
+      <ng-template igxCell let-cell="cell" let-val>
+        <span class="cellAlignSyleVat">{{val | number: '1.2-4' }}</span>
+      </ng-template>
+    </igx-column>
+    <igx-column width="115px" field="vatamt" header="VatAmt" [dataType]="'number'" [editable]="false"
+      [summaries]="VatSummary" [hasSummary]='true'>
+      <ng-template igxCell let-cell="cell" let-val>
+        <span class="cellAlignSyle">{{val | number: '1.2-4' }}</span>
+      </ng-template>
+    </igx-column>
+    <igx-column width="115px" field="total" header="Total" [dataType]="'number'" [editable]="false"
+      [summaries]="totalSummary" [hasSummary]='true'>
+      <ng-template igxCell let-cell="cell" let-val>
+        <span class="cellAlignSyleVat">{{val | currency:'P ':'symbol': '1.2-4' }}</span>
+      </ng-template>
+    </igx-column>
+    <igx-column width="105px" field="serviceID" header="Service" [dataType]="'string'">
+
+      <ng-template igxCellEditor let-cell="cell" let-value>
+        <igx-input-group #inputSVR (keydown.ArrowDown)="openDropDown2()" [igxToggleAction]="dropdown_service">
+          <input igxInput [igxDropDownItemNavigation]="dropdown_service" name="drop-down-target" type="text"
+            [igxFocus]="true" [(ngModel)]="cell.value" />
+          <igx-suffix igxButton="icon" class="dropdownToggleButton" igxRipple>
+            <igx-icon>arrow_drop{{ dropdown_service.collapsed ? '_down' : '_up' }}</igx-icon>
+          </igx-suffix>
+        </igx-input-group>
+        <igx-drop-down #dropdown_service (onSelection)="selectService($event, cell)" displayDensity="compact"
+          height="150px">
+          <igx-drop-down-item *ngFor="let item of servicesListed">{{item.serviceID}}</igx-drop-down-item>
+        </igx-drop-down>
+      </ng-template>
+
+    </igx-column>
+    <igx-column width="300px" field="materials" header="Material" [dataType]="'string'">
+      <ng-template igxCellEditor let-cell="cell">
+        <textarea [(ngModel)]="cell.editValue" (keydown)="$event.stopPropagation()"></textarea>
+      </ng-template>
+    </igx-column>
+    <igx-column width="200px" field="finishing" header="Finish" [dataType]="'string'"></igx-column>
+
+    <ng-template igxRowEditText let-rowChangesCount>
+      Changes: {{rowChangesCount}}
+    </ng-template>
+    <!-- https://github.com/angular/angular/issues/16643 -->
+    <ng-template igxRowEditActions let-endEdit>
+      <button igxButton igxRowEditTabStop (click)="endEdit(false, $event)">Cancel</button>
+      <button igxButton igxRowEditTabStop (click)="endEdit(true, $event)">OkKUNo</button>
+    </ng-template>
+  </igx-grid>
+</app-grid-batch-editing-with-transactions>
+
+
+<div class="buttons-wrapper topgap" igxLayout igxLayoutJustify="space-around">
+  <button igxButton="raised" [disabled]="hasConfirmed" (click)="dialogAdd.open()" igxRipple
+    [displayDensity]="'compact'">
+    <span>
+      <igx-icon fontSet="material" color="#0026ca">add</igx-icon>
+      Add New Item
+    </span>
+  </button>
+  <!-- <button igxButton="raised" [disabled]="!hasTransactions" (click)="saveDetail()" igxRipple [displayDensity]="'cosy'"> -->
+  <button igxButton="raised" [disabled]="hasConfirmed" (click)="saveDetail()" igxRipple [displayDensity]="'cosy'">
+    <span>
+      <igx-icon fontSet="material" color="#FF4500">save</igx-icon>
+      Save / Update
+    </span>
+  </button>
+  <button igxButton="raised" [disabled]="hasConfirmed" (click)="QuoteConfirm()" igxRipple [displayDensity]="'cosy'">
+    <span>
+      <igx-icon fontSet="material" color="#0026ca">thumb_up_alt</igx-icon>
+      Confirm Quotation
+    </span>
+  </button>
+  <button igxButton="raised" [disabled]="hasDisable" (click)="QuoteConfirm()" igxRipple [displayDensity]="'cosy'">
+    <span>
+      <igx-icon fontSet="material" color="#0026ca">developer_board</igx-icon>
+      Generate Job Order
+    </span>
+  </button>
+  <button igxButton="raised" (click)="Printevent()" igxRipple [displayDensity]="'cosy'">
+    <span>
+      <igx-icon fontSet="material" color="#0026ca">print</igx-icon>
+      Print Quotation
+    </span>
+  </button>
+</div>
+
+<!-- add new transaction dialog box -->
+
+<igx-dialog #dialogAdd title="New Transaction" [rightButtonLabel]="'Add'" [leftButtonLabel]="'Cancel'"
+  (onLeftButtonSelect)="closeadd()" (onRightButtonSelect)="addRow()" width="300px">
+  <div class="dialogNewRecord">
+    <igx-input-group>
+      <label igxLabel for="desc">Project Name</label>
+      <input igxInput id="desc" type="text" [(ngModel)]="quoteAddDetail.desc" />
+    </igx-input-group>
+    <igx-input-group>
+      <label igxLabel for="size">Size</label>
+      <input igxInput id="size" type="text" [(ngModel)]="quoteAddDetail.size" />
+    </igx-input-group>
+    <!-- <igx-input-group>
+      <label igxLabel for="qty_order">Quantity</label>
+      <input igxInput #qty id="qty_order" [igxFocus]='true' type="number" [(ngModel)]="quoteAddDetail.qty_order"
+        (blur)="validateqty(qty,snackbar)" required />
+    </igx-input-group> -->
+    <div>
+      <div>
+        <kendo-label text="Quantity Order"></kendo-label>
+      </div>
+      <kendo-numerictextbox format="n0" [min]="0" [(ngModel)]="quoteAddDetail.qty_order"></kendo-numerictextbox>
+    </div>
+    <section class="sample-content">
+      <igx-input-group class="input-group">
+        <label igxLabel for="um">UnitOfMeasure</label>
+        <input #um type="text" id="um" [igxToggleAction]="dropdown_cstype" [igxDropDownItemNavigation]="dropdown_cstype"
+          igxInput readonly="true" [value]="dropdown_cstype.selectedItem?.value.um" [(ngModel)]="quoteAddDetail.um"
+          required />
+      </igx-input-group>
+      <igx-drop-down #dropdown_cstype height='150px' width="100px" displayDensity="comfortable"
+        (onSelection)="onSelectionUM($event)">
+        <igx-drop-down-item *ngFor="let item of umeasuresListed" [value]="item">
+          <div class="igx-drop-down__item-template">
+            {{ item.um }}
+          </div>
+        </igx-drop-down-item>
+      </igx-drop-down>
+    </section>
+
+    <div>
+      <kendo-label text="Unit Price"></kendo-label>
+    </div>
+    <kendo-numerictextbox format="n4" [min]="0" [(ngModel)]="quoteAddDetail.unitcost"></kendo-numerictextbox>
+    <!-- <igx-input-group>
+      <label igxLabel for="unitcost">UnitPrice</label>
+      <input igxInput #unitcost id="unitcost" type="number" [(ngModel)]="quoteAddDetail.unitcost"
+        (blur)="validate(unitcost,snackbar)" required />
+    </igx-input-group> -->
+
+    <section class="sample-content">
+      <igx-input-group class="input-group">
+        <label igxLabel for="serviceID">Types of SERVICE</label>
+        <input #serviceID type="text" id="serviceID" [igxToggleAction]="dropdown_service" [igxTextSelection]="true"
+          [igxFocus]="isFocused" [igxDropDownItemNavigation]="dropdown_service" igxInput readonly="true"
+          [value]="dropdown_service.selectedItem?.value.serviceID" [(ngModel)]="quoteAddDetail.serviceID" required />
+      </igx-input-group>
+      <igx-drop-down #dropdown_service height='200px' width="250px" displayDensity="comfortable"
+        (onSelection)="onSelectionService($event)">
+        <igx-drop-down-item *ngFor="let item of servicesListed" [value]="item">
+          <div class="igx-drop-down__item-template">
+            {{ item.serviceID }}
+          </div>
+        </igx-drop-down-item>
+      </igx-drop-down>
+    </section>
+
+    <igx-input-group>
+      <label igxLabel for="materials">MATERIALS</label>
+      <!-- <input igxInput id="materials" type="text" [(ngModel)]="quoteAddDetail.materials" /> -->
+      <textarea igxInput id="materials" [(ngModel)]="quoteAddDetail.materials"> </textarea>
+    </igx-input-group>
+    <igx-input-group>
+      <label igxLabel for="finishing">Finish</label>
+      <input igxInput id="finishing" type="text" [(ngModel)]="quoteAddDetail.finishing" />
+    </igx-input-group>
+  </div>
+  <igx-snackbar #snackbar [displayTime]="2000" (onAction)="snackbar.hide()"></igx-snackbar>
+</igx-dialog>
+
+<!-- PRINT  dialog box -->
+<igx-dialog #dialogPrint title="Print Preview" [leftButtonLabel]="'Close'" (onLeftButtonSelect)="cancel()"
+  width="1200px" height="800px">
+  <div>
+    <tr-viewer #viewer1 [containerStyle]="viewerContainerStyle" [serviceUrl]="link_report_resource"
+      [reportSource]="rsParam" [viewMode]="'INTERACTIVE'" [scaleMode]="'SPECIFIC'" [scale]="1.0" [ready]="ready"
+      [viewerToolTipOpening]="viewerToolTipOpening" [enableAccessibility]="false" [sendEmail]="{ enabled: 'true' }">
+    </tr-viewer>
+  </div>
+</igx-dialog>

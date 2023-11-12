@@ -1,0 +1,182 @@
+<div class="twinbee-column">
+  <div class="card my-app">
+    <div class="card-header text-center twinbee-title" *ngIf="users$ | async as usr">
+      Update/Edit Billing
+      <i class="fa fa-binoculars" aria-hidden="true" *ngIf="username$ | async"> {{username$}}</i>
+    </div>
+    <div class="card-body" *ngIf="BillHeaderGetSelected$ | async as vm">
+      <!-- <form novalidate class="k-form" [formGroup]="createForm" (ngSubmit)="UpdateBillHdr()"></form> -->
+      <form novalidate class="k-form" [formGroup]="createForm" (ngSubmit)="UpdateBillHdr()">
+        <div class="mhdr" igxLayout igxLayoutDir="row" igxLayoutJustify="space-between">
+          <div class="hdrleft" igxLayout igxLayoutItemAlign="flex-start">
+            <div igxLayout igxLayoutDir="column" igxLayoutJustify="space-between">
+              <!-- <div class="hdrleft" igxLayout *ngIf="viewCustomer$ | async as vc">
+                <igx-combo class="combo" #combocust [itemsMaxHeight]="230" formControlName="custid"
+                  placeholder="Select Customer" searchPlaceholder="Search..." type="box" [displayDensity]="'cosy'"
+                  [data]="vc" [valueKey]="'custid'" [displayKey]="'custname'"
+                  (onSelectionChange)="singleCustSelection($event)">
+                  <label igxLabel>Customer Name:</label>
+                  <igx-prefix>
+                    <igx-icon>people</igx-icon>
+                  </igx-prefix>
+                </igx-combo>
+              </div> -->
+              <div class="hdrleft">
+                <kendo-floatinglabel text="Customer Name">
+                  <kendo-combobox [data]="_customers$" formControlName="custid2" textField="custname"
+                    valueField="custid" placeholder="Select Customer..." [valuePrimitive]="true"
+                    (valueChange)="onCustChange($event)">
+                    <!-- <ng-template kendoTextBoxPrefixTemplate>
+                      <span class="k-icon k-i-email"></span>
+                      <kendo-textbox-separator></kendo-textbox-separator>
+                    </ng-template> -->
+                  </kendo-combobox>
+                </kendo-floatinglabel>
+              </div>
+              <div class="hdrleft" igxLayout>
+                <igx-input-group type="border" [displayDensity]="'cosy'">
+                  <label igxLabel>Bill To / Remarks</label>
+                  <textarea igxInput name="billto" formControlName="billto"></textarea>
+                  <igx-prefix>
+                    <igx-icon>sticky_note_2</igx-icon>
+                  </igx-prefix>
+                </igx-input-group>
+                <!-- <textarea formControlName="custname" kendoTextArea [style.width.px]="400" [style.height.px]="50">
+                  </textarea> -->
+              </div>
+              <div igxLayout igxLayoutItemAlign="flex-start" igxLayoutJustify="center">
+                <div class="layout-box__el">
+                  <button class="btngap" igxButton="raised" igxRipple type="submit">Update / Save</button>
+                </div>
+                <div class="layout-box__el">
+                  <button class="btngap" igxButton="raised" igxRipple type="button"
+                    (click)="Printevent()">Print</button>
+                </div>
+                <div class="layout-box__el">
+                  <button class="btngap" igxButton="raised" igxRipple type="button" (click)="refresh()">REFRESH</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hdright" igxLayout igxLayoutItemAlign="flex-start" igxLayoutJustify="center">
+
+            <div class="ctrlno">
+              <div class="ctrlno">
+                <igx-input-group type="border" [displayDensity]="'cosy'" width="'50px'">
+                  <label igxLabel> Bill Control No.:</label>
+                  <input igxInput name="billno" formControlName="billno" width="'50px'" readonly />
+                  <igx-prefix>
+                    <igx-icon>assessment</igx-icon>
+                  </igx-prefix>
+                </igx-input-group>
+              </div>
+            </div>
+            <div igxLayout igxLayoutDir="column">
+
+              <div class="layout-box" igxLayout igxLayoutJustify="space-between">
+                <div class="layout-box__el"></div>
+                <div class="layout-box__el">
+                  <igx-input-group type="border" [displayDensity]="'cosy'" width="'50px'">
+                    <label igxLabel>Page:</label>
+                    <input igxInput name="page" formControlName="page" width="'50px'" />
+                    <igx-prefix>
+                      <igx-icon>tag</igx-icon>
+                    </igx-prefix>
+                  </igx-input-group>
+                </div>
+                <div class="layout-box__el">
+                  <igx-date-picker #trndate name="trndate" format="MM/dd/yyyy" [mode]="'dropdown'"
+                    formControlName="trndate" cancelButtonLabel="close" todayButtonLabel="today" [value]="current_date"
+                    label="Transaction Date:" displayDensity="compact" (onSelection)="onSdateSelection($event)"
+                    (valueChange)="valueChanged($event)" [formatter]="formatter">
+                  </igx-date-picker>
+                </div>
+                <div class="layout-box__el">
+                  <igx-input-group type="border" [displayDensity]="'cosy'" width="'50px'">
+                    <label igxLabel>Bill No.:</label>
+                    <input igxInput name="billseries" formControlName="billseries" width="'50px'" />
+                    <igx-prefix>
+                      <igx-icon>tag</igx-icon>
+                    </igx-prefix>
+                  </igx-input-group>
+                </div>
+              </div>
+
+              <div class="layout-box" igxLayout igxLayoutJustify="space-between">
+                <div class="layout-box__el"></div>
+                <div class="layout-box__el">
+                  <kendo-floatinglabel text="Select Terms">
+                    <kendo-combobox [data]="_terms" formControlName="terms" textField="termname" valueField="termid"
+                      placeholder="Select Terms..." [valuePrimitive]="true" (valueChange)="onTermChange($event)">
+                    </kendo-combobox>
+                  </kendo-floatinglabel>
+                </div>
+                <div class="layout-box__el">
+                  <igx-date-picker #duedate name="duedate" format="MM/dd/yyyy" [mode]="'dropdown'"
+                    formControlName="duedate" cancelButtonLabel="close" todayButtonLabel="today" [value]="current_date"
+                    label="Due Date:" displayDensity="compact" (onSelection)="onSdateSelectionDue($event)"
+                    (valueChange)="valueChangedDue($event)" [formatter]="formatter">
+                  </igx-date-picker>
+                </div>
+                <div class="layout-box__el">
+                  <igx-input-group type="border" [displayDensity]="'cosy'">
+                    <label igxLabel>P.O. No.:</label>
+                    <input igxInput name="pono" formControlName="pono" />
+                    <igx-prefix>
+                      <igx-icon>tag</igx-icon>
+                    </igx-prefix>
+                  </igx-input-group>
+                </div>
+              </div>
+
+              <div igxLayout igxLayoutDir="row" igxLayoutJustify="space-between">
+                <div class="layout-box__el"></div>
+                <div class="layout-box__el"></div>
+                <div class="layout-box__el">
+                  <igx-input-group type="border" [displayDensity]="'cosy'">
+                    <label igxLabel>Issued By:</label>
+                    <input igxInput name="issuedby" formControlName="issuedby" />
+                    <igx-prefix>
+                      <igx-icon>tag</igx-icon>
+                    </igx-prefix>
+                  </igx-input-group>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- <div class="card-body">
+  <button class="btngap" igxButton="raised" igxRipple type="submit" (click)="UpdateBillHdr()">Next</button>
+</div> -->
+  <div class="container-fluid">
+    <app-dtl-bill [tmpBillDtlNo]="selectedBillDtlNo" [tmpcustid]="tmpcustid"></app-dtl-bill>
+  </div>
+</div>
+
+<div class="container">
+  <kendo-dialog *ngIf="activeAdd" [width]="300" [height]="450" (close)="closeForm()">
+    <kendo-dialog-titlebar>
+      <!-- //    {{ isNew ? 'Add new product' : 'Edit product' }} -->
+      Add New Billing Details
+    </kendo-dialog-titlebar>
+  </kendo-dialog>
+</div>
+
+<igx-dialog #dialogPrint title="Print Preview" [leftButtonLabel]="'Close'" (onLeftButtonSelect)="cancel()"
+  width="1200px" height="1200px">
+  <div>
+    <tr-viewer #viewer1 [containerStyle]="viewerContainerStyle" [serviceUrl]="link_report_resource" [reportSource]="rs"
+      [viewMode]="'INTERACTIVE'" [scaleMode]="'SPECIFIC'" [scale]="1.0" [ready]="ready"
+      [viewerToolTipOpening]="viewerToolTipOpening" [enableAccessibility]="false" [sendEmail]="{ enabled: 'true' }">
+    </tr-viewer>
+  </div>
+</igx-dialog>
+
+<igx-dialog #dialogSaving title="Confirmation" leftButtonLabel="Cancel" (onLeftButtonSelect)="closeSaving()"
+  rightButtonLabel="Save" (onRightButtonSelect)="onDialogOKSelected($event)" message="Are you sure you want to update?">
+</igx-dialog>

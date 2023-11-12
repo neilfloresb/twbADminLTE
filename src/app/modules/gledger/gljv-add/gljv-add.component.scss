@@ -1,0 +1,23 @@
+.layout-box__el {
+  height: 48px;
+  padding: 8px;
+  margin: 8px;
+  //   background: #e41c77;
+  color: rgb(82, 25, 25);
+}
+
+.input-group-form {
+  // padding: 54px, 0, 54px,0;
+  padding-bottom: 28px;
+  margin-bottom: 10px;
+  border: 1px solid rgb(234, 247, 234);
+  // box-shadow: 00 8px 10px -5px palette(rgb(58, 3, 3), 400),
+  //   0 16px 24px 2px palette(rgb(66, 4, 4), 300),
+  //   0 6px 30px 5px palette(rgb(211, 10, 10), 200);
+ background-color:aliceblue;
+}
+
+.elevate16 {
+      box-shadow: 0 8px 10px -5px rgba(0, 0, 0, .26),
+        0 16px 24px 2px rgba(0, 0, 0, .12), 0 6px 30px 5px rgba(0, 0, 0, .08);
+}

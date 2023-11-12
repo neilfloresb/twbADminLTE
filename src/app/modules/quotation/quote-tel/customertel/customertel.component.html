@@ -1,0 +1,39 @@
+<div class="card twinbee-column my-app">
+    <div class="card-header text-center">
+      CUSTOMER MASTER LIST
+    </div>
+  <div class="card-body">
+    <!-- <span class="k-icon k-i-loading" style="color: #ff6358"></span> -->
+    <!--  -->
+    <!--  -->
+
+    <kendo-grid [data]="custView | async" [height]="500" [pageSize]="gridState.take" [skip]="gridState.skip"
+      [sort]="gridState.sort" [pageable]="true" [sortable]="true" (dataStateChange)="onStateChange($event)"
+      (add)="addHandler($event)" (edit)="editHandler($event)" filterable="menu" [selectable]="true">
+      <ng-template kendoGridToolbarTemplate>
+        <button kendoGridAddCommand>Add new</button>
+      </ng-template>
+      <!-- <kendo-grid-column field="custid" title="Customer ID"></kendo-grid-column> -->
+      <kendo-grid-column field="custname" width="310" title="Customer Name"></kendo-grid-column>
+      <kendo-grid-column field="cperson" title="Contact Person" width="200" [filterable]="false"></kendo-grid-column>
+      <kendo-grid-column field="cposition" title="Position" width="170" [filterable]="false"></kendo-grid-column>
+      <kendo-grid-column field="ccontact" title="Contact No." width="180" [filterable]="false"></kendo-grid-column>
+      <kendo-grid-column field="emailadd" title="Email Add." width="200" [filterable]="false"></kendo-grid-column>
+      <kendo-grid-column field="tin" title="TIN" width="180" [filterable]="false"></kendo-grid-column>
+      <kendo-grid-command-column title="command" width="190">
+        <ng-template kendoGridCellTemplate>
+          <button kendoGridEditCommand [primary]="true">Edit</button>
+          <button kendoGridRemoveCommand>Delete</button>
+        </ng-template>
+      </kendo-grid-command-column>
+      <kendo-grid-column field="cperson2" title="Contact Person 2" width="0" [filterable]="false"></kendo-grid-column>
+      <kendo-grid-column field="ccontact2" title="Contact No. 2" width="0" [filterable]="false"></kendo-grid-column>
+    </kendo-grid>
+
+    <!--  -->
+    <!--  -->
+
+    <app-custform-edit [model]="custDataItem" [isNew]="isNew" (save)="saveHandler($event)" (cancel)="cancelHandler()">
+    </app-custform-edit>
+  </div>
+</div>

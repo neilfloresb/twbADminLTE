@@ -1,0 +1,16 @@
+ .content-wrap {
+  display: flex;
+    height: 100%;
+}
+
+
+:host ::ng-deep{
+  .igx-grid__td {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .igx-grid__th {
+    font-size: 14px;
+    color: #03225a;
+  }
+}

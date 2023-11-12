@@ -1,0 +1,172 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "anstwinbee": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {"allowedCommonJsDependencies":["node-forge"],
+            "outputPath": "dist/anstwinbee",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/admin-lte/plugins/fontawesome-free/css/all.css",
+              "./node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.css",
+              "./node_modules/admin-lte/dist/css/adminlte.css"
+            ],
+            "scripts": [
+              "./node_modules/hammerjs/hammer.min.js",
+              "./node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.js",
+              "./node_modules/admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js",
+              "./node_modules/admin-lte/dist/js/adminlte.js",
+              "./node_modules/admin-lte/dist/js/demo.js",
+              "./node_modules/admin-lte/plugins/jquery-mousewheel/jquery.mousewheel.js",
+              "./node_modules/admin-lte/plugins/raphael/raphael.js",
+              "./node_modules/admin-lte/plugins/jquery-mapael/jquery.mapael.js",
+              "./node_modules/admin-lte/plugins/chart.js/Chart.js",
+              "./node_modules/admin-lte/dist/js/pages/dashboard2.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "150kb",
+                  "maximumError": "150kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "anstwinbee:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "anstwinbee:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "anstwinbee:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": [
+              "./node_modules/hammerjs/hammer.min.js",
+              "./node_modules/jquery/dist/jquery.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "anstwinbee:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "anstwinbee:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "anstwinbee",
+  "cli": {
+    "analytics": "63c0c7d1-d4ea-4690-9337-8984284c0e21",
+    "defaultCollection": "@ngrx/schematics"
+  }
+}

@@ -1,0 +1,19 @@
+<div class="twinbee-content">
+  <igx-grid #grdgljv igxPreventDocumentScroll [data]="gljvhedader_data$ | async" [filterMode]="'excelStyleFilter'"
+    [allowFiltering]="true" [primaryKey]="'ref_no'" width="1200px" height="450px" [rowEditable]="true"
+    (onSelection)="handleSelection($event)">
+
+    <igx-column width="125px" field="ref_no" header="Ref. No." [dataType]="'string'"></igx-column>
+    <igx-column width="110px" field="trans_code" header="Trn Code" [dataType]="'string'"></igx-column>
+    <igx-column width="110px" field="book_code" header="Book" [dataType]="'string'"></igx-column>
+    <igx-column width="190px" field="trans_date" header="Date" [dataType]="'string'" [formatter]="formatDate">
+    </igx-column>
+     <igx-column width="300px" field="remarks" header="Remarks" [dataType]="'string'"></igx-column>
+     <!-- <igx-column width="150px" field="cposition" header="Position" [dataType]="'string'" editable="true">
+  </igx-column>
+  <igx-column width="100px" field="ccontact" header="Contact" [dataType]="'string'"></igx-column>
+  <igx-column width="100px" field="emailadd" header="Email" [dataType]="'string'"></igx-column>
+  <igx-column width="135px" [filterable]="false" editable="true"> -->
+
+  </igx-grid>
+</div>

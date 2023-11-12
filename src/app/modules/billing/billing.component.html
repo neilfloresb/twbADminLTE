@@ -1,0 +1,27 @@
+<igx-tabs>
+  <igx-tab-item label="Create Create Billing" routerLink="makebill" routerLinkActive #rla1="routerLinkActive"
+    [isSelected]="rla1.isActive"></igx-tab-item>
+
+  <igx-tab-item label="Billing List" routerLink="list" routerLinkActive #rla2="routerLinkActive"
+    [isSelected]="rla2.isActive"></igx-tab-item>
+
+  <!-- <igx-tab-item label="Tab 3" icon="radio-button_checked" routerLink="view3" routerLinkActive #rla3="routerLinkActive"
+      [isSelected]="rla3.isActive"></igx-tab-item> -->
+</igx-tabs>
+<!-- <div class="container">
+
+  <button class="btnminwidth teal lighten-2" igxButton="raised" displayDensity="compact" igxRipple
+    (click)="GenAndViewforJO()">
+    <igx-icon fontSet="material" color="#FFFF00">rowing</igx-icon>
+    <span>Gen. J.O</span>
+  </button>
+
+  <button class="btnminwidth teal lighten-2" igxButton="raised" displayDensity="compact" igxRipple
+    (click)="GenAndViewforJO3()">
+    <igx-icon fontSet="material" color="#FFFF00">rowing</igx-icon>
+    <span>Gen. J.O</span>
+  </button>
+</div> -->
+<div>
+  <router-outlet></router-outlet>
+</div>

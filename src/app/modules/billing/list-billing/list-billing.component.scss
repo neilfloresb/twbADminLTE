@@ -1,0 +1,105 @@
+@import "~igniteui-angular/lib/core/styles/themes/index";
+
+:host {
+  ::ng-deep {
+    .igx-grid__td {
+      color: #b22222;
+      font-weight: bold;
+    }
+    textarea {
+      width: 400px;
+    }
+    .igx-button--flat {
+      justify-content: left;
+    }
+
+    $new-grid-theme: igx-grid-theme(
+      $row-odd-background: rgba(179, 229, 252, 1),
+      $row-even-background: rgba(255, 249, 196, 1),
+      $row-odd-text-color: rgba(50, 0, 100, 0.74),
+      $row-even-text-color: rgba(128, 33, 77, 0.74),
+    );
+
+    @include igx-grid($new-grid-theme);
+    .igx-grid__th {
+      text-align: center;
+      color: blue;
+      font-weight: bolder;
+      font-size: 12pt;
+    }
+    .igx-grid__td {
+      //color: #b22222;
+      color: #000000;
+      font-weight: bold;
+      font-size: 10pt;
+    }
+
+      .igx-input-group {
+      color: rgb(247, 129, 62);
+    }
+    .igx-input-group--cosy .igx-input-group__input {
+      color: blue;
+    }
+ //
+    .igx-input-group__input,.igx-input-group__textarea
+    {
+      color: blue;
+      font-size: .85rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.card-header{
+  font-size: larger;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.layout-box__el {
+  height: 28px;
+  padding: 8px;
+  margin: 8px;
+  // background: #e41c77;
+  // color: white;
+}
+
+// :host {
+//   ::ng-deep {
+
+
+
+//     // .myBackground {
+//     //   background-color: lightblue;
+//     // }
+//     // .igx-grid__th {
+//     //   text-align: center;
+//     //   color: green;
+//     //   font-weight: bold;
+//     // }
+//     .igx-input-group {
+//       color: rgb(247, 129, 62);
+//     }
+//     .igx-input-group--cosy .igx-input-group__input {
+//       color: blue;
+//     }
+//  //
+//     .igx-input-group__input,.igx-input-group__textarea
+//     {
+//       color: blue;
+//       font-size: .85rem;
+//       font-weight: 600;
+//     }
+
+//     // .igx-input-group--border.igx-input-group--cosy .igx-input-group__bundle {
+//     //   padding: 0 0.8421052632rem;
+//     //   height: 30px;
+//     // }
+//     .igx-input-group--border.igx-input-group--cosy .igx-input-group__bundle {
+//       padding: 0 0.8421052632rem;
+//       height: 40px;
+//     }
+//     form {
+//       height: 200px;
+//     }
+//   }
+// }

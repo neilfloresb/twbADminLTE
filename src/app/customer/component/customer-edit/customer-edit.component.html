@@ -1,0 +1,22 @@
+<p>customer-edit works!</p>
+
+<button igxButton="raised" displayDensity="cosy" igxRipple (click)="InsertCustomer()">
+  <igx-icon fontSet="material" color="#FFFF00">INSERT</igx-icon>
+  <span>Edit</span>
+</button>
+
+<button igxButton="raised" displayDensity="cosy" igxRipple (click)="UpdateCustomer()">
+  <igx-icon fontSet="material" color="#FFFF00">Update</igx-icon>
+  <span>Edit</span>
+</button>
+
+<button igxButton="raised" displayDensity="cosy" igxRipple (click)="deleteCustomer()">
+  <igx-icon fontSet="material" color="#FFFF00">Delete</igx-icon>
+  <span>Edit</span>
+</button>
+
+<div *ngIf="customer$ | async as customer">
+  <li>{{customer.custid}}</li>
+  <li>{{customer.custname}}</li>
+  <li>{{customer.position}}</li>
+</div>

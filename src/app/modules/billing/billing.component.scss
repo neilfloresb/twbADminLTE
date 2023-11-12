@@ -1,0 +1,39 @@
+@import "~igniteui-angular/lib/core/styles/themes/index";
+
+:host {
+  // display: block;
+  // height: 100%;
+
+  // $custom-theme: igx-navdrawer-theme(
+  //   $background: #035375,
+  //   $item-active-background: #ecc256,
+  //   $item-header-text-color: #f3c03e,
+  // );
+
+  // @include igx-css-vars($custom-theme);
+
+  /* Using Theme Overrides to provide IE 11 support.
+     * NOTE: Theming using this approach will greatly increase the size
+     * of the output CSS. If you do not plan to target IE 11,
+     * delete this section and use the `igx-css-vars` mixin as shown above.
+    **/
+  ::ng-deep {
+    // @include igx-navdrawer($custom-theme);
+    // .igx-navbar {
+    //   height: 43px;
+    // }
+    // .igx-tabs__header-menu-item-icon {
+    //   height: 50px;
+    // }
+    .igx-tabs__header-menu-item-icon + .igx-tabs__item-label {
+      padding-top: 0.1rem;
+    }
+  }
+  .igx-tabs--icons .igx-tabs__header-button {
+    min-height: 2.5rem;
+    height: 3rem;
+  }
+  .igx-tabs--item{
+    height: 30px;
+  }
+}
